@@ -1,5 +1,5 @@
 {
-  "name": "school",
+  "name": "kconnect",
   "version": "0.0.1",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
@@ -73,5 +73,5 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "5.5"
   },
-  "description": "An Ionic project"
+  "description": "kconnect ionic project"
 }
