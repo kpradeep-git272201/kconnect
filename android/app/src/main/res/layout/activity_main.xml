@@ -9,4 +9,14 @@
     <WebView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <androidx.camera.view.PreviewView
+        android:id="@+id/previewView"
+        android:layout_width="368dp"
+        android:layout_height="368dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="#000000"
+        android:scaleType="centerCrop"
+    />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
