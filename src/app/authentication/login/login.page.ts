@@ -30,6 +30,7 @@ export class LoginPage implements OnInit {
   }
 
   getLogin() {
+    this.router.navigate(['/apps']);
     if (this.loginForm.valid) {
       const loginData = this.loginForm.getRawValue();
       console.log("Login Data:", JSON.stringify(loginData));

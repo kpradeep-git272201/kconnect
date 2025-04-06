@@ -28,3 +28,21 @@ video {
   box-shadow: 0 0 0 2000px white; // Creates white overlay outside the circle
   pointer-events: none;
 }
+
+//8888888888888888888888888
+.camera-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.circle-frame {
+  width: 300px;
+  height: 300px;
+  border: 6px solid #4CAF50;
+  border-radius: 50%;
+  background-color: black;
+  margin-bottom: 20px;
+}
