@@ -3,6 +3,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DatabaseService } from 'src/app/services/database.service';
+import { CommonService } from 'src/app/services/common.service';
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -17,7 +20,8 @@ export class LoginPage implements OnInit {
   signInTemplate:boolean=false;
   constructor(
     private router: Router,
-    private databaseService: DatabaseService
+    private databaseService: DatabaseService,
+    private commonService: CommonService
   ) {
     this.loginForm = new FormGroup({
       userNmae: new FormControl('', Validators.required),
@@ -30,11 +34,19 @@ export class LoginPage implements OnInit {
   }
 
   getLogin() {
-    this.router.navigate(['/apps']);
+    // this.router.navigate(['/apps']);
     if (this.loginForm.valid) {
       const loginData = this.loginForm.getRawValue();
       console.log("Login Data:", JSON.stringify(loginData));
-  
+      this.commonService.getLogin({ username: 'anu', password: 'Admin@123' })
+      .subscribe({
+        next: (response) => {
+          console.log('Login Success:', response);
+        },
+        error: (err) => {
+          console.error('Login Failed:', err);
+        }
+      });
       /** const matchedStudent = this.registeredStudent.find(
         (student: { name: string; admissionNumber: string; dob: string }) =>
           student.name.toUpperCase() === loginData.name.toUpperCase() &&
