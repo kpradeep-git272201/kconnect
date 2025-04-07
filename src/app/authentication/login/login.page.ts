@@ -34,14 +34,26 @@ export class LoginPage implements OnInit {
   }
 
   getLogin() {
-    // this.router.navigate(['/apps']);
+    this.router.navigate(['/apps']);
     if (this.loginForm.valid) {
       const loginData = this.loginForm.getRawValue();
       console.log("Login Data:", JSON.stringify(loginData));
       this.commonService.getLogin({ username: 'anu', password: 'Admin@123' })
       .subscribe({
         next: (response) => {
-          console.log('Login Success:', response);
+          localStorage.setItem('loggedUser', response);
+          this.loginForm.reset();
+          this.router.navigate(['/apps']);
+          // const token = response.headers.get('Authorization'); // 👈 Get token from headers
+          // console.log('Token from headers:', token);
+          // console.log('Login Success:', response.body);
+
+          // if (token) {
+          //   console.log('Token:', token);
+          //   localStorage.setItem('token', token);
+          // } else {
+          //   console.warn('Token not found in headers');
+          // }
         },
         error: (err) => {
           console.error('Login Failed:', err);
@@ -67,8 +79,6 @@ export class LoginPage implements OnInit {
       } else {
         alert('Invalid credentials. Please try again.');
       } */
-     this.loginForm.reset();
-     this.router.navigate(['/apps']);
     } else {
       this.loginForm.markAllAsTouched();
       // alert('Please fill all fields!');

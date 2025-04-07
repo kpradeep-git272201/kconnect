@@ -39,6 +39,7 @@ export class SideMenuComponent  implements OnInit {
 
   getNavigate(p:any){
     if(p.title=="Logout"){
+      localStorage.removeItem('loggedUser');
       this.router.navigate([p.url]);
     }else{
       this.router.navigate([p.url]);

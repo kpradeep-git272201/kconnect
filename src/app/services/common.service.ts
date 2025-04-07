@@ -16,7 +16,11 @@ export class CommonService {
 
   getLogin(data: { username: string; password: string }): Observable<any> {
     const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.login}`;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const headers = new HttpHeaders({ 
+      'Content-Type': 'application/json' ,
+      'observe': 'response',
+      'responseType': 'json'
+    });
 
     return this.http.post(url, data, { headers }).pipe(
       catchError(error => {

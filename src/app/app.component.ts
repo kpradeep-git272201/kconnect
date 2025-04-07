@@ -26,11 +26,18 @@ export class AppComponent {
   
   constructor(private router: Router,
     private platform: Platform,
-    private zone: NgZone // NgZone Inject Karo
+    private zone: NgZone
   ) {
 
     this.initializeApp();
     addIcons({ mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, heartOutline, heartSharp, archiveOutline, archiveSharp, trashOutline, trashSharp, warningOutline, warningSharp, bookmarkOutline, bookmarkSharp });
+  
+    const token = localStorage.getItem('loggedUser');
+    if (token) {
+      this.router.navigateByUrl('/apps');
+    } else {
+      this.router.navigateByUrl('/auth/login');
+    }
   }
 
   initializeApp() {
