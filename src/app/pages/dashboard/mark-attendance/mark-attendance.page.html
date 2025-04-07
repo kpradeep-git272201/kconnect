@@ -8,19 +8,22 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- <ion-button expand="block" (click)="startDetection()">
-    Start
+  <!-- <ion-button expand="block" (click)="stopCamera()">
+    Stop
   </ion-button> -->
   <div class="camera-container">
     <div class="circle-frame"></div>
     <div *ngIf="capturedImage">
       <h2>Captured Image:</h2>
-      <img [src]="capturedImage" width="200" />
+      <img [src]="capturedImage" alt="Selfie" />
     </div>
   </div>
-  <ion-button expand="block" id="proceedBtn">
-    Proceed
+  <ion-button *ngIf="!successMessage" expand="block" id="proceedBtn" (click)="stopCamera()">
+    Stop Camera
   </ion-button>
+  <ion-text *ngIf="successMessage" style="margin-left:1rem; margin-right:1rem; color:green">
+    <p style="padding-left: 1rem; padding-right: 1rem">{{ successMessage }}</p>
+  </ion-text>
   <!-- <div class="camera-container">
     <video #videoElement autoplay playsinline></video>
     <canvas #canvasElement></canvas>
