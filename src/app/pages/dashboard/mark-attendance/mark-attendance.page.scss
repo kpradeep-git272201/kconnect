@@ -30,19 +30,45 @@ video {
 }
 
 //8888888888888888888888888
+// .camera-container {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   padding: 20px;
+// }
+
+// .circle-frame {
+//   width: 23rem;
+//   height: 23rem;
+//   // border: 6px solid #4CAF50;
+//   border-radius: 50%;
+//   background-color: black;
+//   margin-bottom: 20px;
+// }
+
+
 .camera-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  padding: 20px;
+  align-items: center;
+  margin-top: 2rem;
 }
 
 .circle-frame {
-  width: 23rem;
-  height: 23rem;
-  border: 6px solid #4CAF50;
+  width: 250px;
+  height: 250px;
   border-radius: 50%;
-  background-color: black;
-  margin-bottom: 20px;
+  overflow: hidden;
+  // border: 4px solid #4caf50; /* optional: green border */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // background-color: #000; /* optional: dark background */
+}
+
+.circle-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
