@@ -48,7 +48,7 @@ export class MarkAttendancePage implements OnInit {
           this.capturedImage = `data:image/jpeg;base64,${result.image}`;
         }
         // alert('Captured image set in variable');
-        this.successMessage = "✅ Attendance marked successfully! Have a great day 😊";
+        this.successMessage = "✅ Attendance marked successfully😊!";
         // this.stopCamera();
         this.cd.detectChanges(); 
       } else {
