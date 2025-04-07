@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angula
 import { SharedModule } from 'src/app/shared/shared.module';
 import { Camera } from '@capacitor/camera';
 import { MyCustomPlugin } from 'my-custom-plugin/src';
-
+import { ChangeDetectorRef } from '@angular/core';
 
 
 @Component({
@@ -16,7 +16,7 @@ export class MarkAttendancePage implements OnInit {
  
   capturedImage: string | null = null;
 
-  constructor() {}
+  constructor(private cd: ChangeDetectorRef) {}
 
   ngAfterViewInit() {
     this.startDetection();
@@ -40,16 +40,18 @@ export class MarkAttendancePage implements OnInit {
       if (status.camera === 'granted') {
         const result = await MyCustomPlugin.startFaceDetection();
         console.log('Raw result from plugin:', result);
-        alert('Got result: ' + JSON.stringify(result));
-  
+        alert('Got result: ' + JSON.stringify(result.image));
+
         if (result.image.startsWith('data:image')) {
           this.capturedImage = result.image;
         } else {
           this.capturedImage = `data:image/jpeg;base64,${result.image}`;
         }
-  
+
         console.log('capturedImage set:', this.capturedImage);
         alert('Captured image set in variable');
+
+        this.cd.detectChanges(); // Force UI to update
       } else {
         alert('Camera permission is required to take a photo.');
       }
