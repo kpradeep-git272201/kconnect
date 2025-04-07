@@ -40,6 +40,7 @@
     "bootstrap": "^5.3.3",
     "ionicons": "^7.0.0",
     "long": "^5.3.1",
+    "my-custom-plugin": "file:my-custom-plugin",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
