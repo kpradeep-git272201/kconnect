@@ -10,6 +10,7 @@
  */
 
 /* Core CSS required for Ionic components to work properly */
+
 @import "@ionic/angular/css/core.css";
 @import "bootstrap/dist/css/bootstrap.min.css";
 /* Basic CSS for apps built with Ionic */
@@ -76,4 +77,22 @@ ion-title{
 }
 ion-back-button{
   color: white;
+}
+
+
+.page-background {
+  --background: url('/assets/background/theme2.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100%;
+}
+
+.card-bg{
+  background-image: url('/assets/background/card_theme1.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white; /* Optional: Text dikhne ke liye */
+  border-radius: 0.75rem;
 }

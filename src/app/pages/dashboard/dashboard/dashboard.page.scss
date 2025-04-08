@@ -7,6 +7,13 @@
   box-shadow: none !important;
   border-color: white !important;
 }
+.custom-avatar-item {
+  align-items: center;
+}
+
+.custom-avatar img {
+  object-fit: cover;
+}
 
 ::ng-deep ion-item .item-inner {
   border-color: white !important;
@@ -30,64 +37,9 @@
   display: flex;
   align-items: center;
 }
-  .profile-card {
-    background: #e91e63;
-    padding: 20px;
-    border-radius: 15px;
-    color: white;
-    text-align: center;
-    margin: 10px;
-  }
-  
-  .profile-avatar {
-    width: 5.625rem;
-    height: 5.625rem;
-    margin: 0 auto;
-    border: 3px solid white;
-  }
-  
-  /* Progress Bars */
-  .progress-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-  }
-  
-  .progress-bar {
-    width: 48%;
-    text-align: left;
-    font-size: 14px;
-  }
-  
-  .progress {
-    width: 100%;
-    height: 6px;
-    background: #ffffff50;
-    border-radius: 5px;
-    margin-top: 5px;
-    position: relative;
-  }
-  
-  .progress-fill {
-    height: 100%;
-    border-radius: 5px;
-  }
-  
-  .attendance {
-    background: #ffeb3b;
-  }
-  
-  .fee {
-    background: #00bcd4;
-  }
-  
 
-  ion-list-header {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    padding-bottom: 5px;
-  }
+
+  
   
   /* Icon Grid */
   .centered-icons {
@@ -95,6 +47,10 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    img{
+      width: 2.75rem; 
+      height: 2.75rem;
+    }
   }
   
   ion-col {
@@ -117,7 +73,6 @@
   }
   
   .icon-grid p {
-    font-size: 14px;
     margin-top: 5px;
     font-weight: 500;
     color: #444;
@@ -134,12 +89,9 @@
     --color-selected: #e91e63;
   }
   
-  ion-tab-button ion-icon {
-    font-size: 22px;
-  }
-  
+
+
   .notifications{
-    font-size: 1.875rem;
     padding-right: 0.313rem;
     color: white;
   }

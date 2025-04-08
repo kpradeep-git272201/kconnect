@@ -24,7 +24,6 @@ export class MarkAttendancePage implements OnInit {
   }
 
   ngOnDestroy() {
-    this.stopCamera();
   }
 
   async ngOnInit() {}

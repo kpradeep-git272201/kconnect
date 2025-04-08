@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from 'src/app/guards/auth.guard';
 
 
 const routes: Routes = [
@@ -10,11 +11,13 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    loadComponent: () => import('./dashboard/dashboard.page').then(m => m.DashboardPage)
+    loadComponent: () => import('./dashboard/dashboard.page').then(m => m.DashboardPage),
+    canActivate: [AuthGuard]
   },
   {
     path: 'student-profile',
-    loadComponent: () => import('./student-profile/student-profile.page').then(m => m.StudentProfilePage)
+    loadComponent: () => import('./student-profile/student-profile.page').then(m => m.StudentProfilePage),
+    canActivate: [AuthGuard]
   },
   {
     path: 'change-pin',
@@ -22,27 +25,33 @@ const routes: Routes = [
   },
   {
     path: 'school-profile',
-    loadComponent: () => import('./school-profile/school-profile.page').then(m => m.SchoolProfilePage)
+    loadComponent: () => import('./school-profile/school-profile.page').then(m => m.SchoolProfilePage),
+    canActivate: [AuthGuard]
   },
   {
     path: 'about',
-    loadComponent: () => import('./about/about.page').then(m => m.AboutPage)
+    loadComponent: () => import('./about/about.page').then(m => m.AboutPage),
+    canActivate: [AuthGuard]
   },
   {
     path: 'home',
-    loadComponent: () => import('./home/home.page').then(m => m.HomePage)
+    loadComponent: () => import('./home/home.page').then(m => m.HomePage),
+    canActivate: [AuthGuard]
   },
   {
     path: 'attendance',
-    loadComponent: () => import('./attendance/attendance.page').then( m => m.AttendancePage)
+    loadComponent: () => import('./attendance/attendance.page').then( m => m.AttendancePage),
+    canActivate: [AuthGuard]
   },
   {
     path: 'homework',
-    loadComponent: () => import('./homework/homework.page').then( m => m.HomeworkPage)
+    loadComponent: () => import('./homework/homework.page').then( m => m.HomeworkPage),
+    canActivate: [AuthGuard]
   },
   {
     path: 'mark-attendance',
-    loadComponent: () => import('./mark-attendance/mark-attendance.page').then( m => m.MarkAttendancePage)
+    loadComponent: () => import('./mark-attendance/mark-attendance.page').then( m => m.MarkAttendancePage),
+    canActivate: [AuthGuard]
   },
 ];
 
