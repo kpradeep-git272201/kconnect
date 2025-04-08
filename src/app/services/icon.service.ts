@@ -35,7 +35,9 @@ import {
   heart,
   caretBackOutline,
   caretForwardOutline,
-  notificationsOutline
+  notificationsOutline,
+  eyeOffOutline,
+  eyeOutline
 } from 'ionicons/icons';
 
 @Injectable({
@@ -82,7 +84,9 @@ export class IconService {
       heart,
       caretBackOutline,
       caretForwardOutline,
-      notificationsOutline
+      notificationsOutline,
+      eyeOffOutline,
+      eyeOutline
     });
   }
 }

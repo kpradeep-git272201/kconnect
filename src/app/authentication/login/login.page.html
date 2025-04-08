@@ -18,35 +18,47 @@
             <!-- <h4 class="fw-bold mb-3" style="text-align: left;">Login</h4> -->
             <h4 class="fw-bold mb-3">Login your account</h4>
             <form [formGroup]="loginForm" (ngSubmit)="getLogin()">
-              <div class="form-group">
+              <div class="form-group password-wrapper">
                 <ion-input
+                  (ionChnage)="clearMsg()"
                   type="email"
                   placeholder="User Id"
                   class="form-control mb-3"
                   formControlName="userNmae"
                 ></ion-input>
-                <div *ngIf="loginForm.get('userName')?.touched && loginForm.get('userName')?.invalid" class="error-message">
+                <div *ngIf="loginForm.get('userName')?.touched && loginForm.get('userName')?.invalid" class="error-message global-error-message">
                   User Id is required.
                 </div>
               </div>
 
-              <div class="form-group">
+              <div class="form-group password-wrapper">
                 <ion-input
-                  type="password"
+                (ionChnage)="clearMsg()"
+                  [type]="showPassword ? 'text' : 'password'"
                   placeholder="Password"
                   class="form-control mb-3"
                   formControlName="password"
                 ></ion-input>
-                <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid" class="error-message">
-                  User Id & Password are required.
-                </div>
+            
+                <ion-icon
+                  [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"
+                  class="password-toggle-icon"
+                  (click)="togglePasswordVisibility()"
+                ></ion-icon>
               </div>
-
+              <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid" class="error-message">
+                {{ errorMessage }}
+              </div>
+              <div *ngIf="errorMessagefromService != ''" class="global-error-message">
+                {{ errorMessagefromService }}
+              </div>
               <ion-button type="submit" expand="block" class="login-btn">Login</ion-button>
             </form>
           </div>
           <p class="pb-lg-2 pt-3" style="text-align: center;">Don't have an account? <a
-            style="color: #393f81;" (click)="getSignIn()">Sign In</a></p>
+            style="color: #393f81;">Sign In</a></p> 
+            <!-- (click)="getSignIn()" -->
+            <p class="pb-lg-2 pt-3" style="text-align: center;">App Version: 0.2</p> 
         </div>
       </div>
     </div>
