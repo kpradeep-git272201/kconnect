@@ -53,7 +53,6 @@ export class MarkAttendancePage implements OnInit {
       }
     } catch (err) {
       this.capturedImage = `Detection failed ${err}`;
-      console.error('Detection failed', err);
     }
   }
 
