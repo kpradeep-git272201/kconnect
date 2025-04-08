@@ -15,7 +15,7 @@
           @for (p of appPages; track p; let i = $index) {
             <ion-menu-toggle auto-hide="false">
               <ion-item routerDirection="root" (click)="getNavigate(p)" lines="none" detail="false" routerLinkActive="selected">
-                <ion-icon aria-hidden="true" slot="start" [name]="p.icon+'-outline'"></ion-icon>
+                <ion-icon class="icon-md" aria-hidden="true" slot="start" [name]="p.icon+'-outline'"></ion-icon>
                 <ion-label>{{ p.title }}</ion-label>
               </ion-item>
             </ion-menu-toggle>

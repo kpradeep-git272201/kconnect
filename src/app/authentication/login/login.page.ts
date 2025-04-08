@@ -3,6 +3,12 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DatabaseService } from 'src/app/services/database.service';
+import { CommonService } from 'src/app/services/common.service';
+import { IconService } from 'src/app/services/icon.service';
+import { addIcons } from 'ionicons';
+import { eyeOffOutline, eyeOutline } from 'ionicons/icons';
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -15,10 +21,15 @@ export class LoginPage implements OnInit {
   registeredStudent: any = [];
   loginTemplate:boolean=true;
   signInTemplate:boolean=false;
+  errorMessage:string="User Id & Password are required.";
+  errorMessagefromService:string="";
+  showPassword: boolean = false;
   constructor(
     private router: Router,
-    private databaseService: DatabaseService
+    private databaseService: DatabaseService,
+    private commonService: CommonService,
   ) {
+    addIcons({  eyeOffOutline,  eyeOutline });
     this.loginForm = new FormGroup({
       userNmae: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
@@ -34,7 +45,38 @@ export class LoginPage implements OnInit {
     if (this.loginForm.valid) {
       const loginData = this.loginForm.getRawValue();
       console.log("Login Data:", JSON.stringify(loginData));
-  
+      const loginBody={
+        username: loginData.userNmae,
+        password : loginData.password,
+      }
+      /** { username: 'anu', password: 'Admin@123' } */
+      const response = this.commonService.getLogin(loginBody);
+      console.log(response);
+      // .subscribe({
+      //   next: (response) => {
+      //     this.errorMessagefromService="";
+      //     // localStorage.setItem('token', JSON.stringify(response.headers.get('authorization')));
+          // localStorage.setItem('loggedUser', response);
+      //     this.loginForm.reset();
+      //     this.router.navigate(['/apps']);
+      //     // const token = response.headers.get('Authorization'); //
+      //     // console.log('Token from headers:', token);
+      //     // console.log('Login Success:', response.body);
+
+      //     // if (token) {
+      //     //   console.log('Token:', token);
+      //     //   localStorage.setItem('token', token);
+      //     // } else {
+      //     //   console.warn('Token not found in headers');
+      //     // }
+      //   },
+      //   error: (err) => {
+      //     console.error('Login Failed:', err);
+      //     this.errorMessagefromService="Please try again!";
+      //     this.loginForm.markAllAsTouched();
+     
+      //   }
+      // });
       /** const matchedStudent = this.registeredStudent.find(
         (student: { name: string; admissionNumber: string; dob: string }) =>
           student.name.toUpperCase() === loginData.name.toUpperCase() &&
@@ -55,9 +97,8 @@ export class LoginPage implements OnInit {
       } else {
         alert('Invalid credentials. Please try again.');
       } */
-     this.loginForm.reset();
-     this.router.navigate(['/apps']);
     } else {
+      this.errorMessagefromService="";
       this.loginForm.markAllAsTouched();
       // alert('Please fill all fields!');
     }
@@ -73,5 +114,12 @@ export class LoginPage implements OnInit {
   goToLogin(){
     this.loginTemplate=true;
     this.signInTemplate=false;
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+  clearMsg(){
+    this.errorMessagefromService="";
   }
 }

@@ -15,7 +15,8 @@ import { ChangeDetectorRef } from '@angular/core';
 export class MarkAttendancePage implements OnInit {
  
   capturedImage: string | null = null;
-  successMessage:string;
+  successMessage:string = "✅ Attendance marked successfully😊!";
+
   constructor(private cd: ChangeDetectorRef) {}
 
 
@@ -24,7 +25,6 @@ export class MarkAttendancePage implements OnInit {
   }
 
   ngOnDestroy() {
-    this.stopCamera();
   }
 
   async ngOnInit() {}
@@ -59,7 +59,7 @@ export class MarkAttendancePage implements OnInit {
   stopCamera(){
     MyCustomPlugin.stopCamera()
       .then(() => {
-        this.successMessage = "✅ Attendance marked successfully😊!";
+     
       })
       .catch(err => console.error('Failed to stop camera', err));
   }

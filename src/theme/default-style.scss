@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+// Set global font
+body {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.875rem;
+  color: var(--ion-text-color, #222);
+}
+
+// Font Sizes
+.fs-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.fs-subtitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+.fs-body {
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+.fs-caption {
+  font-size: 0.75rem;
+  font-weight: 300;
+}
+
+// Icon Sizes
+.icon-sm {
+  font-size: 1.25rem;
+}
+.icon-md {
+  font-size: 1.5rem;
+}
+.icon-lg {
+  font-size: 2rem;
+}
+
+// Rounded corners
+.rounded {
+  border-radius: 0.5rem;
+}
+.rounded-xl {
+  border-radius: 1rem;
+}
+
+// Card style
+.card-shadow {
+  background: var(--ion-background-color);
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.06);
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+
+// Button style
+.btn-primary {
+  background: var(--ion-color-primary);
+  color: white;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+// Spacing Utilities
+.p-1 { padding: 0.25rem; }
+.p-2 { padding: 0.5rem; }
+.p-3 { padding: 1rem; }
+
+.mt-1 { margin-top: 0.25rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-3 { margin-top: 1rem; }
+
+// Dark mode support ready
+@media (prefers-color-scheme: dark) {
+  body {
+    color: #e5e5e5;
+    background-color: #121212;
+  }
+
+  .card-shadow {
+    background: #1e1e1e;
+    box-shadow: none;
+  }
+
+  .btn-primary {
+    background: #3a86ff;
+  }
+}

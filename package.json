@@ -21,6 +21,7 @@
     "@angular/platform-browser": "^19.0.0",
     "@angular/platform-browser-dynamic": "^19.0.0",
     "@angular/router": "^19.0.0",
+    "@capacitor-community/http": "^1.4.1",
     "@capacitor/android": "7.2.0",
     "@capacitor/app": "7.0.1",
     "@capacitor/camera": "^7.0.1",
@@ -41,6 +42,7 @@
     "ionicons": "^7.0.0",
     "long": "^5.3.1",
     "my-custom-plugin": "file:my-custom-plugin",
+    "ngx-capacitor-http": "^0.0.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
