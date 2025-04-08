@@ -60,7 +60,7 @@ export class MarkAttendancePage implements OnInit {
   stopCamera(){
     MyCustomPlugin.stopCamera()
       .then(() => {
-        this.successMessage = "✅ Attendance marked successfully! Have a great day 😊";
+        this.successMessage = "✅ Attendance marked successfully😊!";
       })
       .catch(err => console.error('Failed to stop camera', err));
   }
