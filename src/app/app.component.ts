@@ -10,6 +10,8 @@ import { NgZone } from '@angular/core';
 import { StatusBar } from '@capacitor/status-bar';
 import { Capacitor } from '@capacitor/core';
 import { HttpClientModule } from '@angular/common/http';
+import { HTTP } from '@awesome-cordova-plugins/http/ngx';
+import { CommonService } from './services/common.service';
 
 
 
@@ -19,7 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
   imports: [SharedModule, SideMenuComponent,HttpClientModule ],
- 
+  providers: [CommonService, HTTP] 
 })
 export class AppComponent {
   showMenu = false; 

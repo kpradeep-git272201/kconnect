@@ -7,6 +7,8 @@ import { CommonService } from 'src/app/services/common.service';
 import { IconService } from 'src/app/services/icon.service';
 import { addIcons } from 'ionicons';
 import { eyeOffOutline, eyeOutline } from 'ionicons/icons';
+import { HTTP } from '@awesome-cordova-plugins/http/ngx';
+import { from, Observable } from 'rxjs';
 
 
 @Component({
@@ -15,6 +17,7 @@ import { eyeOffOutline, eyeOutline } from 'ionicons/icons';
   styleUrls: ['./login.page.scss'],
   standalone: true,
   imports: [SharedModule],
+  providers: [HTTP] 
 })
 export class LoginPage implements OnInit {
   loginForm: FormGroup;
@@ -24,10 +27,12 @@ export class LoginPage implements OnInit {
   errorMessage:string="User Id & Password are required.";
   errorMessagefromService:string="";
   showPassword: boolean = false;
+  getdata: any;
   constructor(
     private router: Router,
     private databaseService: DatabaseService,
     private commonService: CommonService,
+    private httpNative: HTTP
   ) {
     addIcons({  eyeOffOutline,  eyeOutline });
     this.loginForm = new FormGroup({
@@ -40,69 +45,70 @@ export class LoginPage implements OnInit {
     this.registeredStudent = this.databaseService.getRegisteredStd();
   }
 
-  getLogin() {
-    this.router.navigate(['/apps']);
-    if (this.loginForm.valid) {
-      const loginData = this.loginForm.getRawValue();
-      console.log("Login Data:", JSON.stringify(loginData));
-      const loginBody={
-        username: loginData.userNmae,
-        password : loginData.password,
-      }
-      /** { username: 'anu', password: 'Admin@123' } */
-      const response = this.commonService.getLogin(loginBody);
-      console.log(response);
-      // .subscribe({
-      //   next: (response) => {
-      //     this.errorMessagefromService="";
-      //     // localStorage.setItem('token', JSON.stringify(response.headers.get('authorization')));
-          // localStorage.setItem('loggedUser', response);
-      //     this.loginForm.reset();
-      //     this.router.navigate(['/apps']);
-      //     // const token = response.headers.get('Authorization'); //
-      //     // console.log('Token from headers:', token);
-      //     // console.log('Login Success:', response.body);
-
-      //     // if (token) {
-      //     //   console.log('Token:', token);
-      //     //   localStorage.setItem('token', token);
-      //     // } else {
-      //     //   console.warn('Token not found in headers');
-      //     // }
-      //   },
-      //   error: (err) => {
-      //     console.error('Login Failed:', err);
-      //     this.errorMessagefromService="Please try again!";
-      //     this.loginForm.markAllAsTouched();
-     
-      //   }
-      // });
-      /** const matchedStudent = this.registeredStudent.find(
-        (student: { name: string; admissionNumber: string; dob: string }) =>
-          student.name.toUpperCase() === loginData.name.toUpperCase() &&
-          student.admissionNumber.toUpperCase() === loginData.admissionNumber.toUpperCase() &&
-          student.dob === loginData.dob
-      ); */
   
-      /** console.log("Matched Student:", matchedStudent);
+  getId() {
+    this.commonService.getDataFromIP().subscribe(data => {
+      console.log('IP API Response:', data);
+      // this.getdata = data;
+      alert('IP API Response: '+ data);
+    });
 
-      if (matchedStudent) {
-        this.router.navigate(['/apps'], {
-          queryParams: {
-            name: matchedStudent.name,
-            admissionNumber: matchedStudent.admissionNumber,
-            dob: matchedStudent.dob
-          }
-        });
-      } else {
-        alert('Invalid credentials. Please try again.');
-      } */
-    } else {
-      this.errorMessagefromService="";
-      this.loginForm.markAllAsTouched();
-      // alert('Please fill all fields!');
-    }
   }
+
+  egramswaraj() {
+    this.commonService.getDataFromEgram().subscribe(data => {
+      console.log('Egram API Response:', data);
+      // this.getdata = data;
+      alert('Egram API Response: '+ data);
+    });
+  }
+
+  httpbin() {
+    this.commonService.getDataFromHttpbin().subscribe(data => {
+      console.log('Httpbin API Response:', data);
+      // this.getdata = data;
+      alert('Httpbin API Response: '+ JSON.stringify(data));
+    });
+  }
+
+  getLogin() {
+  if (this.loginForm.valid) {
+    const loginData = this.loginForm.getRawValue();
+    console.log("Login Data:", JSON.stringify(loginData));
+
+    const loginBody = {
+      username: loginData.userNmae, 
+      password: loginData.password
+    };
+
+    this.commonService.getLogin(loginBody).subscribe({
+      next: (response) => {
+        this.errorMessagefromService = "";
+
+        const token = response.headers?.get('Authorization') || response.headers?.get('authorization');
+        if (token) {
+          console.log('Token from headers:', token);
+          localStorage.setItem('token', token);
+        } else {
+          console.warn('Token not found in headers');
+        }
+        localStorage.setItem('loggedUser', JSON.stringify(response.body));
+
+        this.loginForm.reset();
+        this.router.navigate(['/apps']);
+      },
+      error: (err) => {
+        console.error('Login Failed:', err);
+        this.errorMessagefromService = "Please try again!";
+        this.loginForm.markAllAsTouched();
+      }
+    });
+  } else {
+    this.errorMessagefromService = "";
+    this.loginForm.markAllAsTouched();
+  }
+}
+
   
 
   getSignIn(){
