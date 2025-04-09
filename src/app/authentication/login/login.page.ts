@@ -7,6 +7,9 @@ import { CommonService } from 'src/app/services/common.service';
 import { IconService } from 'src/app/services/icon.service';
 import { addIcons } from 'ionicons';
 import { eyeOffOutline, eyeOutline } from 'ionicons/icons';
+import { HTTP } from '@awesome-cordova-plugins/http/ngx';
+import { from, Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-login',
@@ -14,6 +17,7 @@ import { eyeOffOutline, eyeOutline } from 'ionicons/icons';
   styleUrls: ['./login.page.scss'],
   standalone: true,
   imports: [SharedModule],
+  providers: [HTTP] 
 })
 export class LoginPage implements OnInit {
   loginForm: FormGroup;
@@ -28,6 +32,7 @@ export class LoginPage implements OnInit {
     private router: Router,
     private databaseService: DatabaseService,
     private commonService: CommonService,
+    private httpNative: HTTP
   ) {
     addIcons({  eyeOffOutline,  eyeOutline });
     this.loginForm = new FormGroup({
@@ -40,15 +45,31 @@ export class LoginPage implements OnInit {
     this.registeredStudent = this.databaseService.getRegisteredStd();
   }
 
-  // onLoginClick() {
-  //   this.commonService.getData().then(data => {
-  //     this.getdata = data; // save response
-  //     console.log("✅ Data received:", this.getdata);
-  //   }).catch(error => {
-  //     console.error("❌ Error:", error);
-  //   });
-  // }
+  
+  getId() {
+    this.commonService.getDataFromIP().subscribe(data => {
+      console.log('IP API Response:', data);
+      // this.getdata = data;
+      alert('IP API Response: '+ data);
+    });
 
+  }
+
+  egramswaraj() {
+    this.commonService.getDataFromEgram().subscribe(data => {
+      console.log('Egram API Response:', data);
+      // this.getdata = data;
+      alert('Egram API Response: '+ data);
+    });
+  }
+
+  httpbin() {
+    this.commonService.getDataFromHttpbin().subscribe(data => {
+      console.log('Httpbin API Response:', data);
+      // this.getdata = data;
+      alert('Httpbin API Response: '+ JSON.stringify(data));
+    });
+  }
 
   getLogin() {
   if (this.loginForm.valid) {

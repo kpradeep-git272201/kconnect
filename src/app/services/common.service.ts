@@ -13,6 +13,28 @@ export class CommonService {
     this.httpNative.setDataSerializer('json');
   }
 
+  /********************  */
+    getDataFromIP(): Observable<any> {
+      return this.http.get('http://147.79.66.224/madminapi/publicApi/v1/auth/test', { 
+        responseType: 'text' as 'json'
+      });
+    }
+
+    getDataFromEgram(): Observable<any> {
+     
+      return this.http.get('https://egramswaraj.gov.in/egs-api-demo/api/v1/auth/test', {
+         responseType: 'text' as 'json'
+      });
+    }
+
+    getDataFromHttpbin(): Observable<any> {
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json'
+      });
+      return this.http.get('http://httpbin.org/get', { headers });
+    }
+
+  /***  ************************ */
   isMobile(): boolean {
     return !!window && !!(window as any).Capacitor;
   }
