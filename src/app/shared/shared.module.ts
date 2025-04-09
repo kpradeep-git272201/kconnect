@@ -43,6 +43,7 @@ import {
   IonMenu,
   IonMenuButton,
   IonCardSubtitle,
+  IonLoading ,
   IonApp, IonSplitPane, IonListHeader, IonNote, IonMenuToggle, IonRouterOutlet, IonRouterLink
 } from '@ionic/angular/standalone';
 import { HttpClientModule } from '@angular/common/http';
@@ -103,7 +104,8 @@ import { HttpClientModule } from '@angular/common/http';
     IonMenuToggle, 
     IonRouterOutlet, 
     IonRouterLink,
-    HttpClientModule 
+    HttpClientModule,
+    IonLoading 
   ],
   exports:[IonContent, IonHeader, IonTitle, CommonModule, FormsModule,
     IonContent,
@@ -157,7 +159,8 @@ import { HttpClientModule } from '@angular/common/http';
     IonMenuToggle, 
     IonRouterOutlet, 
     IonRouterLink,
-    HttpClientModule 
+    HttpClientModule,
+    IonLoading 
   ]
 })
 export class SharedModule { }

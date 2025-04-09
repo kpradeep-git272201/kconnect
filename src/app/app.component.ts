@@ -7,12 +7,11 @@ import { SharedModule } from './shared/shared.module';
 import { SideMenuComponent } from "./components/side-menu.component";
 import { Platform } from '@ionic/angular';
 import { NgZone } from '@angular/core';
-import { StatusBar } from '@capacitor/status-bar';
 import { Capacitor } from '@capacitor/core';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP } from '@awesome-cordova-plugins/http/ngx';
 import { CommonService } from './services/common.service';
-
+import { StatusBar, Style } from '@capacitor/status-bar';
 
 
 
@@ -47,6 +46,7 @@ export class AppComponent {
       if (Capacitor.isNativePlatform()) {
         StatusBar.setOverlaysWebView({ overlay: false });
         StatusBar.setBackgroundColor({ color: '#563d7c' });
+        StatusBar.setStyle({ style: Style.Light });
       }
     });
   }

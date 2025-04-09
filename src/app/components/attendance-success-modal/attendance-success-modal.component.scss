@@ -1,0 +1,58 @@
+.success-modal-content {
+  --background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .success-box {
+    text-align: center;
+    padding: 20px;
+
+    .success-title {
+      font-size: 1.5rem;
+      color: #28a745;
+      margin-bottom: 15px;
+    }
+
+    .photo-frame img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 100px;
+      margin-bottom: 15px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .success-time {
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .success-message {
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+// .custom-modal-class::part(content) {
+//   border-radius: 16px;
+// }
+
+// .custom-modal-class::part(content) {
+//   animation: fadeInUp 0.3s ease-out;
+// }
+
+.photo-frame {
+    display: flex;
+    justify-content: center;
+    margin: 16px 0;
+  }
+  
+  .photo-frame img {
+    width: 150px;
+    height: 150px;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
