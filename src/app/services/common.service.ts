@@ -21,7 +21,6 @@ export class CommonService {
     }
 
     getDataFromEgram(): Observable<any> {
-     
       return this.http.get('https://egramswaraj.gov.in/egs-api-demo/api/v1/auth/test', {
          responseType: 'text' as 'json'
       });
@@ -35,9 +34,6 @@ export class CommonService {
     }
 
   /***  ************************ */
-  isMobile(): boolean {
-    return !!window && !!(window as any).Capacitor;
-  }
 
   getLogin(data: { username: string; password: string }): Observable<any> {
     const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.login}`;
