@@ -53,6 +53,12 @@ const routes: Routes = [
     loadComponent: () => import('./mark-attendance/mark-attendance.page').then( m => m.MarkAttendancePage),
     canActivate: [AuthGuard]
   },
+  {
+
+    path: 'attendance-logs',
+    loadComponent: () => import('./attendance-logs/attendance-logs.page').then( m => m.AttendanceLogsPage),
+    canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({

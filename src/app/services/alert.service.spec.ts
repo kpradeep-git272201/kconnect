@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FaceDetectionService } from './face-detection.service';
+import { AlertService } from './alert.service';
 
-describe('FaceDetectionService', () => {
-  let service: FaceDetectionService;
+describe('AlertService', () => {
+  let service: AlertService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(FaceDetectionService);
+    service = TestBed.inject(AlertService);
   });
 
   it('should be created', () => {

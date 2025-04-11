@@ -80,22 +80,32 @@ export class CommonService {
   markAttendance(data:any){
     const token = localStorage.getItem('token');
     const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.employeeAttendance}`;
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': `Bearer ${token}`
-    });
+    const headers = new HttpHeaders().set('content-type', 'application/json').set('Accept', 'application/json').set('Authorization', `Bearer ${token}`);
     return this.request('POST', url, { body: data, headers: headers, reportProgress: false, observe: 'response' }).pipe(
       map(resp => {
         return resp;
       }),
       catchError(error => {
-        alert(error);
-        return of(false);
+        // alert(error);
+        return of(error);
       })
     );
   }
  
+  getAttendanceLogs(){
+    const token = localStorage.getItem('token');
+    const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.employeeAttendance}`;
+    const headers = new HttpHeaders().set('content-type', 'application/json').set('Accept', 'application/json').set('Authorization', `Bearer ${token}`);
+    return this.request('GET', url, { headers: headers, reportProgress: false, observe: 'response' }).pipe(
+      map(resp => {
+        return resp;
+      }),
+      catchError(error => {
+        // alert(error);
+        return of(error);
+      })
+    );
+  }
   /****************************** ****************************************** */
   
   makeRequest(
