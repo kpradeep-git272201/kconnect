@@ -5,13 +5,11 @@
           <domain includeSubdomains="true">147.79.66.224</domain>
     </domain-config>
 
-    <!-- Second domain -->
-    <domain-config cleartextTrafficPermitted="true">
+    <!-- <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">egramswaraj.gov.in</domain>
     </domain-config>
 
-    <!-- Third domain (no subdomains) -->
     <domain-config cleartextTrafficPermitted="true">
         <domain>httpbin.org</domain>
-    </domain-config>
+    </domain-config> -->
 </network-security-config>

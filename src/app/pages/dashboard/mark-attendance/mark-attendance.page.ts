@@ -3,6 +3,17 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { Camera } from '@capacitor/camera';
 import { MyCustomPlugin } from 'my-custom-plugin/src';
 import { ChangeDetectorRef } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { AppConfig } from 'src/app/config/app.config';
+import { AttendanceSuccessModalComponent } from 'src/app/components/attendance-success-modal/attendance-success-modal.component';
+import { AlertController } from '@ionic/angular';
+import { CommonService } from 'src/app/services/common.service';
+import moment from 'moment';
+import { LoadingService } from 'src/app/services/loading.service';
+import { Geolocation } from '@capacitor/geolocation';
+import { AlertService } from 'src/app/services/alert.service';
+
+
 
 
 @Component({
@@ -10,51 +21,36 @@ import { ChangeDetectorRef } from '@angular/core';
   templateUrl: './mark-attendance.page.html',
   styleUrls: ['./mark-attendance.page.scss'],
   standalone: true,
+  providers: [ModalController],
   imports: [SharedModule]
 })
 export class MarkAttendancePage implements OnInit {
  
   capturedImage: string | null = null;
-  successMessage:string = "✅ Attendance marked successfully😊!";
+  successMessage:string="";
+  dateTime: string = moment().format('DD-MMM-YYYY hh:mm:ss A');
+  markAttendanceFailed: boolean=false;
+  showCamera=true;
+  constructor(private cd: ChangeDetectorRef,
+    private modalController: ModalController,
+    private alertController: AlertController,
+    private commonService: CommonService,
+    private loadingService: LoadingService,
+    private alertService: AlertService
+  ) {}
 
-  constructor(private cd: ChangeDetectorRef) {}
 
-
-  ngAfterViewInit() {
+  async ngAfterViewInit() {
     this.startDetection();
+    await this.loadingService.hideLoading();
   }
 
   ngOnDestroy() {
+    this.stopCamera();
   }
 
   async ngOnInit() {}
 
-  // async proceed(){
-  //   await MyCustomPlugin.startFaceDetection({ image: "This is my first plugin" }).then((res:any)=>{
-  //     alert("Return value is "+JSON.stringify(res.image));
-  //   }).catch((err:any)=>{alert(JSON.stringify(err))});
-  // }
-
-  
-  async startDetection() {
-    try {
-      const status = await Camera.requestPermissions();
-      if (status.camera === 'granted') {
-        const result = await MyCustomPlugin.startFaceDetection();
-        if (result.image.startsWith('data:image')) {
-          this.capturedImage = result.image;
-        } else {
-          this.capturedImage = `data:image/jpeg;base64,${result.image}`;
-        }
-        this.successMessage = "✅ Attendance marked successfully😊!";
-        this.cd.detectChanges(); 
-      } else {
-        alert('Camera permission is required to take a photo.');
-      }
-    } catch (err) {
-      this.capturedImage = `Detection failed ${err}`;
-    }
-  }
 
   stopCamera(){
     MyCustomPlugin.stopCamera()
@@ -63,4 +59,155 @@ export class MarkAttendancePage implements OnInit {
       })
       .catch(err => console.error('Failed to stop camera', err));
   }
+
+  async startDetection() {
+    try {
+      const status = await Camera.requestPermissions();
+      if (status.camera === 'granted') {
+        const result = await MyCustomPlugin.startFaceDetection();
+        await this.loadingService.showLoading();
+        if (result.image.startsWith('data:image')) {
+          this.capturedImage = result.image;
+        } else {
+          this.capturedImage = `data:image/jpeg;base64,${result.image}`;
+        }
+        const capturedImageBase64 = this.capturedImage.split(',')[1];
+        await this.getCurrentLocation(capturedImageBase64);
+
+        this.cd.detectChanges(); 
+      } else {
+        this.alertService.showAlert('Alert','Camera permission is required to take a photo.', 'alert');
+
+      }
+    } catch (err) {
+      await this.loadingService.hideLoading();
+      this.tryAgain()
+      this.markAttendanceFailed=true;
+      this.successMessage="";
+      this.capturedImage = `Detection failed ${err}`;
+    }
+  }
+
+
+  async getCurrentLocation(capturedImage: string) {
+    try {
+
+      const perm = await Geolocation.requestPermissions();
+      if (perm.location === 'denied') {
+        await this.loadingService.hideLoading();
+        this.alertService.showAlert('Alert','Location permission denied. Please allow it from settings.', 'alert');
+        return;
+      }
+      if (!navigator.geolocation) {
+        await this.loadingService.hideLoading();
+        this.alertService.showAlert('Alert','Location services are not available on your device.', 'alert');
+        return;
+      }
+  
+      const position = await Geolocation.getCurrentPosition({
+        enableHighAccuracy: true,
+        timeout: 10000 
+      });
+  
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+  
+      console.log('Latitude:', lat);
+      console.log('Longitude:', lng);
+
+      this.markAttendance(capturedImage, lat, lng);
+  
+    } catch (err: any) {
+      await this.loadingService.hideLoading();
+      this.showCamera = false;
+      this.markAttendanceFailed = false;
+      this.successMessage = "";
+      console.error('Location error:', err);
+      this.alertService.showAlert('Alert','Failed to get location. Please enable location and try again.', 'alert');
+    }
+  }
+  
+
+  async markAttendance(imageBase64:string, lat:any, lng:any){
+   
+    const data={
+      "longitude": lng,
+      "latitude": lat,
+      "photo": imageBase64
+    }
+    this.commonService.markAttendance(data).subscribe(
+      async (resp) => {
+       console.log(resp);
+       
+       await this.loadingService.hideLoading();
+       if(resp){
+        this.markAttendanceFailed=false;
+        this.successMessage="Your attendance has been successfully recorded.";
+        this.showCamera=false;
+       }else{
+        this.markAttendanceFailed=true;
+        this.showCamera=false;
+        this.successMessage="";
+       }
+      },
+      async (error) => {
+        await this.loadingService.hideLoading();
+        this.successMessage="";
+        this.markAttendanceFailed=true;
+        this.showCamera=false;
+      },
+    );
+  }
+
+  
+
+
+  tryAgain(){
+    this.markAttendanceFailed=false;
+    this.successMessage="";
+    this.startDetection();
+  }
+
+
+  // async getModel(){
+  //     const alert = await this.alertController.create({
+  //       header: 'Alert',
+  //       subHeader: 'Important message',
+  //       message: `<div class="alert-thumbnail">
+  //       <img src="assets/imgs/sample.jpg" alt="Thumbnail" />
+  //       <p>This is an alert message with a thumbnail.</p>
+  //     </div>`,
+  //       cssClass: 'custom-alert',
+  //       buttons: ['OK'],
+  //     });
+  //     await alert.present();
+  //   }
+  // }
+  // async openSuccessModal(capturedImage: string) {
+  //   const modal = await this.modalController.create({
+  //     component: AttendanceSuccessModalComponent,
+  //     componentProps: {
+  //       photo: capturedImage,
+  //       time: new Date().toLocaleString(),
+  //       message: 'Your attendance has been marked successfully!'
+  //     },
+  //    cssClass: 'alert-style-modal'
+  //   });
+  
+  //   await modal.present();
+  // }
+
+  // async openCustomPopup(){
+  //   const modal = await this.modalController.create({
+  //     component: AttendanceSuccessModalComponent,
+  //     componentProps: {
+  //       title: 'My Custom Popup',
+  //       message: `<strong>Hello!</strong><br>This is a custom HTML popup.`
+  //     },
+  //     showBackdrop: true,
+  //     backdropDismiss: false,
+  //     cssClass: 'my-custom-modal'
+  //   });
+
+  //   await modal.present();
 }

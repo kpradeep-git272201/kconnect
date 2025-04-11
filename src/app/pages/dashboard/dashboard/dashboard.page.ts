@@ -31,4 +31,8 @@ export class DashboardPage implements OnInit {
   markAttendance(){
     this.router.navigate(["/apps/mark-attendance"]);
   }
+
+  attendanceLogs(){
+    this.router.navigate(["/apps/attendance-logs"]);
+  }
 }
