@@ -4,6 +4,7 @@ import { logoIonic, homeOutline, documentOutline, bookOutline, cardOutline, docu
 import { addIcons } from 'ionicons';
 import { Router } from '@angular/router';
 import { IconService } from 'src/app/services/icon.service';
+import { CommonService } from 'src/app/services/common.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
@@ -12,12 +13,17 @@ import { IconService } from 'src/app/services/icon.service';
   imports: [SharedModule]
 })
 export class DashboardPage implements OnInit {
+  user: any;
 
-  constructor(private router: Router, private iconService: IconService) { 
+  constructor(private router: Router, private iconService: IconService,
+    private commonService: CommonService
+  ) { 
     addIcons({notificationsOutline,homeOutline,documentOutline,bookOutline,cardOutline,documentTextOutline,newspaperOutline,starOutline,megaphoneOutline,schoolOutline,cashOutline,checkboxOutline,chatboxEllipsesOutline,mailOutline,logoIonic});
+    this.iconService.registerIcons();
   }
 
   ngOnInit() {
+   this.user = this.commonService.getLoggedUser();
   }
 
 

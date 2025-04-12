@@ -1,0 +1,107 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <!-- <ion-title>Principal Dashboard</ion-title> -->
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="notifications-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="logout()">
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="dashboard-bg pb-3">
+  <ion-card>
+    <ion-item lines="none" class="custom-avatar-item  welcome-card">
+      <ion-avatar slot="start" class="custom-avatar">
+        <img src="assets/images/dashboard/profile.jpg" alt="Principal" />
+      </ion-avatar>
+      <ion-label style="padding-top: 1.25rem; padding-bottom: 1.25rem;">
+        <h2>Welcome</h2>
+        <h1>{{user?.name}}</h1>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" size-sm="12">
+        <ion-card class="stat-card amount-card">
+          <ion-card-header>
+            <ion-card-title>Total Amount</ion-card-title>
+            <p>₹ 15000</p>
+            <small>From Last Year</small>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6" size-sm="12">
+        <ion-card class="stat-card expense-card">
+          <ion-card-header>
+            <ion-card-title>Expenditure</ion-card-title>
+            <p>₹ 0</p>
+            <small>From Last Year</small>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="6" size-sm="12">
+        <ion-card class="stat-card employees-card">
+          <ion-card-header>
+            <ion-card-title>Total Employees</ion-card-title>
+            <p>--</p>
+            <small>Current Year</small>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6" size-sm="12">
+        <ion-card class="stat-card present-employees-card">
+          <ion-card-header>
+            <ion-card-title>Present Employees</ion-card-title>
+            <p>--</p>
+            <small>Today</small>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="6" size-sm="12">
+        <ion-card class="stat-card students-card">
+          <ion-card-header>
+            <ion-card-title>Total Students</ion-card-title>
+            <p>4</p>
+            <small>Current Year</small>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6" size-sm="12">
+        <ion-card class="stat-card present-students-card">
+          <ion-card-header>
+            <ion-card-title>Present Students</ion-card-title>
+            <p>0</p>
+            <small>Today</small>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-button expand="block" color="dark">
+      <ion-icon name="cloud-upload-outline" slot="start"></ion-icon>
+      Upload Event/Circular
+    </ion-button>
+
+    <ion-button expand="block" color="dark">
+      <ion-icon name="checkbox-outline" slot="start"></ion-icon>
+      Mark Attendance
+    </ion-button>
+
+    <ion-button expand="block" color="dark">
+      <ion-icon name="reader-outline" slot="start"></ion-icon>
+      View My Attendance
+    </ion-button>
+  </ion-grid>
+</ion-content>

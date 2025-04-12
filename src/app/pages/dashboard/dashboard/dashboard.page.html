@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
+    <ion-buttons *ngIf="user?.roleId==19" slot="start">
       <ion-menu-button style="color: white;"></ion-menu-button>
     </ion-buttons>
     <ion-title style="color: white;">Dashboard</ion-title>
@@ -17,9 +17,9 @@
       <ion-avatar slot="start" class="custom-avatar">
         <img src="assets/images/dashboard/profile.jpg" alt="Student" />
       </ion-avatar>
-      <ion-label>
-        <h2 class="fs-title">Demo Student</h2>
-        <p>Designation: Sr. Teacher</p>
+      <ion-label style="padding-top: 1.25rem; padding-bottom: 1.25rem;">
+        <h1>{{user?.name}}</h1>
+        <h5><strong>Designation: Sr. Teacher</strong></h5>
       </ion-label>
     </ion-item>
   </ion-card>

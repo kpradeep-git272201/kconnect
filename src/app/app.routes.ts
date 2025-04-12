@@ -19,12 +19,6 @@ export const routes: Routes = [
   },
 
 
- 
-
-
-
-
-
   // {
   //   path: '',
   //   redirectTo: 'sign-in', 
