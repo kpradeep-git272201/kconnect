@@ -15,6 +15,16 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'owner-dashbaord',
+    loadComponent: () => import('./owner-dashbaord/owner-dashbaord.page').then( m => m.OwnerDashbaordPage),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'principal-dashbaord',
+    loadComponent: () => import('./principal-dashbaord/principal-dashbaord.page').then( m => m.PrincipalDashbaordPage),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'student-profile',
     loadComponent: () => import('./student-profile/student-profile.page').then(m => m.StudentProfilePage),
     canActivate: [AuthGuard]

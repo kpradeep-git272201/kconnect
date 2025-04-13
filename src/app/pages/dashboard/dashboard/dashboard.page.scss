@@ -1,19 +1,4 @@
-.custom-avatar {
-  --size: 5.625rem;
-  width: 5.625rem;
-  height: 5.625rem;
-  --border-width: 0rem;
-  border: none !important;
-  box-shadow: none !important;
-  border-color: white !important;
-}
-.custom-avatar-item {
-  align-items: center;
-}
 
-.custom-avatar img {
-  object-fit: cover;
-}
 
 ::ng-deep ion-item .item-inner {
   border-color: white !important;
@@ -25,18 +10,9 @@
 .card{
   width: 100%;
 }
-.custom-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Ensures the image fits well */
-  border-radius: 50%; /* Keeps it circular */
-}
+
 
 /* Ensure the item aligns properly */
-.custom-avatar-item {
-  display: flex;
-  align-items: center;
-}
 
 
   
@@ -102,4 +78,9 @@
   }
   p{
     font-weight: bold;
+  }
+
+  ion-avatar.custom-avatar {
+    width: 5rem;
+    height: 5rem;
   }

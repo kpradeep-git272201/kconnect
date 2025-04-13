@@ -198,3 +198,37 @@ ion-back-button{
   --color: #856404 !important;      /* Dark orange text */
   text-align: center !important;
 }
+
+
+// dashbaord 
+.custom-avatar-item {
+  display: flex;
+  align-items: center;
+}
+
+
+.custom-avatar {
+  --size: 5.625rem;
+  width: 5.625rem;
+  height: 5.625rem;
+  --border-width: 0rem;
+  border: none !important;
+  box-shadow: none !important;
+  border-color: white !important;
+}
+
+
+.custom-avatar img {
+  object-fit: cover;
+}
+
+.custom-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image fits well */
+  border-radius: 50%; /* Keeps it circular */
+}
+
+ion-card {
+  box-shadow: 0 0.063rem 0.25rem rgba(0, 0, 0, 0.1);
+}

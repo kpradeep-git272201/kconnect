@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, ObservableInput, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { AppConfig } from '../config/app.config';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,20 @@ import { AppConfig } from '../config/app.config';
 export class CommonService {
   handleError: (err: any, caught: Observable<any>) => ObservableInput<any>;
   loggedIn: boolean;
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+    private router: Router
+  ) {
 
   }
 
+
+  getLoggedUser(){
+    const loggedUser:any = localStorage.getItem('loggedUser');
+    const token = localStorage.getItem('token');
+    if (token)
+      return (loggedUser)? JSON.parse(loggedUser): loggedUser;
+    else return;
+  }
   /********************  */
     getDataFromIP(): Observable<any> {
       return this.http.get('http://147.79.66.224/madminapi/publicApi/v1/auth/test', { 
@@ -106,6 +117,15 @@ export class CommonService {
       })
     );
   }
+
+
+  getLogout(){
+    localStorage.removeItem('loggedUser');
+    localStorage.removeItem('token');
+    this.router.navigate(['/auth/login']);
+  }
+
+
   /****************************** ****************************************** */
   
   makeRequest(

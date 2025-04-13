@@ -37,7 +37,10 @@ import {
   caretForwardOutline,
   notificationsOutline,
   eyeOffOutline,
-  eyeOutline
+  eyeOutline,
+  cloudUploadOutline,
+  checkboxOutline,
+  readerOutline
 } from 'ionicons/icons';
 
 @Injectable({
@@ -45,11 +48,13 @@ import {
 })
 export class IconService {
   constructor() {
-    this.registerIcons();
+    
   }
-
-  private registerIcons() {
+  registerIcons() {
     addIcons({
+      readerOutline,
+      checkboxOutline,
+      cloudUploadOutline,
       locationOutline,
       cartOutline,
       mailOutline,

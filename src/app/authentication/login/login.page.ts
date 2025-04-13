@@ -10,6 +10,7 @@ import { eyeOffOutline, eyeOutline } from 'ionicons/icons';
 import { HTTP } from '@awesome-cordova-plugins/http/ngx';
 import { from, Observable } from 'rxjs';
 import { AppConfig } from 'src/app/config/app.config';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -34,6 +35,7 @@ export class LoginPage implements OnInit {
     private databaseService: DatabaseService,
     private commonService: CommonService,
     private httpNative: HTTP,
+    private alertService: AlertService
   ) {
     addIcons({ eyeOffOutline, eyeOutline });
     this.loginForm = new FormGroup({
@@ -62,7 +64,15 @@ export class LoginPage implements OnInit {
           localStorage.setItem('loggedUser', JSON.stringify(resp.body));
           localStorage.setItem('token', resp.headers.get('authorization'));
           this.loginForm.reset();
-          this.router.navigate(['/apps']);
+          if(resp.body.roleId==19){ // Emplayee dashbaord
+            this.router.navigate(['/apps/dashboard']);
+          }else if(resp.body.roleId==2){  // Owner dashbaord
+            this.router.navigate(['/apps/owner-dashbaord']);
+          }else if(resp.body.roleId==3){ // Principle dashbaord
+            this.router.navigate(['/apps/principal-dashbaord']);
+          }else{
+            this.alertService.showAlert("Access Denied!", "Your role has not been assigned yet. Please contact the administrator for assistance.", "alert");
+          }
         },
         (error) => {
           this.loginForm.reset();

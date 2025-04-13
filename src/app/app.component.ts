@@ -33,9 +33,17 @@ export class AppComponent {
     this.initializeApp();
     addIcons({ mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, heartOutline, heartSharp, archiveOutline, archiveSharp, trashOutline, trashSharp, warningOutline, warningSharp, bookmarkOutline, bookmarkSharp });
   
-    const token = localStorage.getItem('loggedUser');
+    const loggedUser:any = localStorage.getItem('loggedUser');
+    const token = localStorage.getItem('token');
     if (token) {
-      this.router.navigateByUrl('/apps');
+      const user:any=(loggedUser)? JSON.parse(loggedUser): loggedUser;
+      if(user?.roleId==19){ // Emplayee dashbaord
+        this.router.navigate(['/apps/dashboard']);
+      }else if(user?.roleId==2){  // Owner dashbaord
+        this.router.navigate(['/apps/owner-dashbaord']);
+      }else if(user?.roleId==3){ // Principle dashbaord
+        this.router.navigate(['/apps/principal-dashbaord']);
+      }
     } else {
       this.router.navigateByUrl('/auth/login');
     }

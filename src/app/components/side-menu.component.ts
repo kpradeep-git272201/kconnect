@@ -5,6 +5,7 @@ import { addIcons } from 'ionicons';
 import { mailOutline, appsOutline, 
   homeOutline, personCircleOutline, albumsOutline, logOutOutline, schoolOutline, createOutline, paperPlaneOutline, paperPlaneSharp, heartOutline, heartSharp, archiveOutline, archiveSharp, trashOutline, trashSharp, warningOutline, warningSharp, bookmarkOutline, bookmarkSharp } from 'ionicons/icons';
 import { CommonModule } from '@angular/common';
+import { CommonService } from '../services/common.service';
 
 @Component({
   selector: 'app-side-menu',
@@ -25,7 +26,9 @@ export class SideMenuComponent  implements OnInit {
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
  
-  constructor(private router: Router) {
+  constructor(private router: Router,
+    private commonService: CommonService
+  ) {
     console.log("Side Menu");
     addIcons({ mailOutline,homeOutline, appsOutline,
       paperPlaneOutline, paperPlaneSharp, 
@@ -40,7 +43,7 @@ export class SideMenuComponent  implements OnInit {
   getNavigate(p:any){
     if(p.title=="Logout"){
       localStorage.removeItem('loggedUser');
-      this.router.navigate([p.url]);
+      this.commonService.getLogout();
     }else{
       this.router.navigate([p.url]);
     }
