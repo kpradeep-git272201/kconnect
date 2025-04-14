@@ -10,5 +10,9 @@ export const AppConfig = {
       studentAttendance :'madminapi/private/w/v1/studentAttendance',
       branchLocation :'madminapi/private/w/v1/branchLocation',
       stuAttendance  :'madminapi/private/w/v1/studentAttendance/1/0',
+      totalEmployee : 'madminapi/private/r/v1/employeeAttendanceData/branchWiseData/',
+      totalEmployeeList : 'madminapi/private/r/v1/employeeAttendanceData/bySingleDate',
+      presentEmployee : 'madminapi/private/r/v1/employeeAttendanceData/todayData/',
+      myAttendance : 'madminapi/private/w/v1/employeeAttendance',
     }
   };

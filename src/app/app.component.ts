@@ -40,9 +40,9 @@ export class AppComponent {
       if(user?.roleId==19){ // Emplayee dashbaord
         this.router.navigate(['/apps/dashboard']);
       }else if(user?.roleId==2){  // Owner dashbaord
-        this.router.navigate(['/apps/owner-dashbaord']);
+        this.router.navigate(['/owner/dashboard']);
       }else if(user?.roleId==3){ // Principle dashbaord
-        this.router.navigate(['/apps/principal-dashbaord']);
+        this.router.navigate(['/principal/dashboard']);
       }
     } else {
       this.router.navigateByUrl('/auth/login');

@@ -1,0 +1,54 @@
+.attendance-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem 1rem; /* 1.5rem = 24px, 1rem = 16px */
+}
+
+.my-attendance-card {
+  width: 100%;
+  max-width: 25rem; /* 400px = 25rem */
+}
+
+.card-body.no-avatar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* 0.5rem = 8px */
+}
+
+.label-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem; /* 0.8rem = 12.8px */
+}
+
+.label-details .name {
+  font-size: 1.1rem; /* 1.1rem = 17.6px */
+  font-weight: 600;
+}
+
+.label-details .date,
+.label-details .timing,
+.label-details .duration {
+  display: flex;
+  align-items: center;
+  font-size: 0.85rem; /* 0.85rem = 13.6px */
+  color: #555;
+}
+
+.label-details .date ion-icon,
+.label-details .timing ion-icon,
+.label-details .duration ion-icon {
+  margin-right: 0.5rem; /* 0.5rem = 8px */
+}
+
+.status-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 0.75rem; /* 0.75rem = 12px */
+  border-radius: 0.75rem; /* 12px = 0.75rem */
+  padding: 0.25rem 0.5rem; /* 4px = 0.25rem, 8px = 0.5rem */
+  margin-right: 0.813rem;
+}

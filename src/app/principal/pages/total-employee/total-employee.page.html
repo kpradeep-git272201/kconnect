@@ -1,0 +1,65 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/principal/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Total Employee</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="search-container">
+    <ion-searchbar
+      [placeholder]="'Search Employee'"
+      class="custom-searchbar"
+      (ionInput)="filterEmployees($event)"
+    ></ion-searchbar>
+  </div>
+  <ng-container *ngIf="filteredEmployee && filteredEmployee.length > 0; else noData">
+    <ion-card *ngFor="let person of filteredEmployee" class="employee-card">
+      <ion-item lines="none" class="card-item">
+        <ion-avatar slot="start" [ngStyle]="{ 'background-color': person.bgColor }" class="avatar-circle">
+          <div class="avatar-text">{{ person.name.charAt(0).toUpperCase() }}</div>
+        </ion-avatar>
+  
+        <ion-label>
+          <h2 class="name">{{ person.name }}</h2>
+          <p class="date">Date: {{ person.date | date: 'dd-MMM-yyyy' }}</p>
+          <p class="timing">
+            🕒 {{
+              person.inTime
+                ? (person.inTime.split('.')[0])
+                : '—'
+            }} - {{
+              person.outTime
+                ? (person.outTime.split('.')[0])
+                : '—'
+            }}
+          </p>
+        </ion-label>
+  
+        <ion-badge
+          slot="end"
+          class="status-badge"
+          [color]="person.inTime && person.outTime ? 'success' : person.inTime ? 'warning' : 'medium'"
+        >
+          {{
+            person.inTime && person.outTime
+              ? 'Completed'
+              : person.inTime
+              ? 'In Progress'
+              : 'Not Marked'
+          }}
+        </ion-badge>
+      </ion-item>
+    </ion-card>
+  </ng-container>
+
+  <ng-template #noData>
+    <ion-text color="medium">
+      <div style="text-align: center; margin-top: 2rem; font-size: 1.2rem;">
+        🙁 No employee attendance found
+      </div>
+    </ion-text>
+  </ng-template>
+</ion-content>

@@ -1,0 +1,79 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/principal/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Present Employee</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="search-container">
+    <ion-searchbar
+      [placeholder]="'Search Employee'"
+      class="custom-searchbar"
+      (ionInput)="filterEmployees($event)"
+    ></ion-searchbar>
+  </div>
+  <ng-container *ngIf="filteredEmployee?.length > 0; else noData">
+    <ion-card *ngFor="let person of filteredEmployee" class="employee-list-card">
+      <ion-item lines="none" class="employee-list-item">
+        <!-- In Avatar -->
+        <ion-avatar slot="start" class="avatar-side">
+          <img *ngIf="person.inPhoto" [src]="'data:image/jpeg;base64,' + person.inPhoto" alt="In Photo" />
+          <ion-label class="time-label">
+            <small>{{ person.inTime ? (person.inTime.split('.')[0]) : '—' }}</small>
+          </ion-label>
+        </ion-avatar>
+
+        <!-- Name and Date -->
+        <ion-label class="center-content">
+          <h2 class="employee-name">{{ person.name }}</h2>
+          <p class="employee-date">{{ person.date | date: 'dd-MMM-yyyy' }}</p>
+        </ion-label>
+
+        <!-- Out Avatar -->
+        <ion-avatar slot="end" class="avatar-side">
+          <img *ngIf="person.outPhoto" [src]="'data:image/jpeg;base64,' + person.outPhoto" alt="Out Photo" />
+          <ion-label class="time-label">
+            <small>{{ person.outTime ? (person.outTime.split('.')[0]) : '—' }}</small>
+          </ion-label>
+        </ion-avatar>
+      </ion-item>
+
+      <!-- Badge Row with status + duration -->
+      <ion-card-content class="badge-row">
+        <!-- Status Badge -->
+        <ion-badge
+          class="status-badge"
+          [color]="person.inTime && person.outTime ? 'success' : person.inTime ? 'warning' : 'medium'"
+        >
+          {{
+            person.inTime && person.outTime
+              ? 'Completed'
+              : person.inTime
+              ? 'In Progress'
+              : 'Not Marked'
+          }}
+        </ion-badge>
+
+        <!-- Duration Badge -->
+        <ion-badge
+          *ngIf="person.inTime && person.outTime"
+         
+          class="duration-badge"
+        >
+        Duration : {{ person.inTime.split('.')[0] }} - {{ person.outTime.split('.')[0] }}
+        </ion-badge>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+  <ng-template #noData>
+    <ion-card>
+      <ion-card-content class="ion-text-center">
+        😕 No attendance records found.
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
+</ion-content>

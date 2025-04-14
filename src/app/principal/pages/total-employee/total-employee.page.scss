@@ -1,0 +1,31 @@
+.custom-card {
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 16px;
+}
+
+.custom-item {
+  --padding-start: 12px;
+  --inner-padding-end: 12px;
+}
+
+ion-badge.status-badge {
+  font-size: 0.75rem;
+  text-transform: capitalize;
+  // padding: 4px 8px;
+  border-radius: 8px;
+}
+.avatar-circle {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-text {
+  color: #333;
+  font-weight: bold;
+  font-size: 1.1rem;
+}

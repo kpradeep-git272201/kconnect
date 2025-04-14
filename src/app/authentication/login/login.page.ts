@@ -67,9 +67,9 @@ export class LoginPage implements OnInit {
           if(resp.body.roleId==19){ // Emplayee dashbaord
             this.router.navigate(['/apps/dashboard']);
           }else if(resp.body.roleId==2){  // Owner dashbaord
-            this.router.navigate(['/apps/owner-dashbaord']);
+            this.router.navigate(['/owner/dashboard']);
           }else if(resp.body.roleId==3){ // Principle dashbaord
-            this.router.navigate(['/apps/principal-dashbaord']);
+            this.router.navigate(['/principal/dashboard']);
           }else{
             this.alertService.showAlert("Access Denied!", "Your role has not been assigned yet. Please contact the administrator for assistance.", "alert");
           }
