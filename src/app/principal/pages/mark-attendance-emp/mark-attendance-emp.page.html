@@ -8,6 +8,9 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <div class="face-message" *ngIf="!capturedImage">
+    <p>Blink your eye to capture image</p>
+  </div>
   <div *ngIf="showCamera" class="camera-container">
     <div class="circle-frame">
       <img *ngIf="capturedImage" [src]="capturedImage" alt="Selfie" />

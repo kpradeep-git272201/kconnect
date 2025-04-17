@@ -10,11 +10,31 @@
 <ion-content [fullscreen]="true">
   <div class="search-container">
     <ion-searchbar
-      [placeholder]="'Search Employee'"
+      style="width: 64%;"
+      [placeholder]="'Search'"
       class="custom-searchbar"
       (ionInput)="filterEmployees($event)"
     ></ion-searchbar>
+  
+    <!-- Calendar Icon + Date Picker -->
+    <div style="display: flex; align-items: center; padding-left: 1rem;">
+      <!-- <ion-icon name="calendar-outline" (click)="openDatePicker()" size="large"></ion-icon> -->
+      <ion-datetime-button datetime="datetime" style="display: block;" ></ion-datetime-button>
+    </div>
   </div>
+
+
+  <ion-modal [keepContentsMounted]="true">
+    <ng-template>
+      <ion-datetime 
+      presentation="date"
+      id="datetime"
+      [value]="currentDate"
+      (ionChange)="onDateChange($event)"
+      show-default-buttons="true"
+      ></ion-datetime>
+    </ng-template>
+  </ion-modal>
   <ng-container *ngIf="filteredEmployee && filteredEmployee.length > 0; else noData">
     <ion-card *ngFor="let person of filteredEmployee" class="employee-card">
       <ion-item lines="none" class="card-item">
@@ -58,7 +78,7 @@
   <ng-template #noData>
     <ion-text color="medium">
       <div style="text-align: center; margin-top: 2rem; font-size: 1.2rem;">
-        🙁 No employee attendance found
+        No employee attendance found
       </div>
     </ion-text>
   </ng-template>

@@ -14,5 +14,7 @@ export const AppConfig = {
       totalEmployeeList : 'madminapi/private/r/v1/employeeAttendanceData/bySingleDate',
       presentEmployee : 'madminapi/private/r/v1/employeeAttendanceData/todayData/',
       myAttendance : 'madminapi/private/w/v1/employeeAttendance',
+      studentList : 'madminapi/private/w/v1/studentAttendance',
+      classList: 'madminapi/private/r/v1/classTeacherData/getAssignedClasses'
     }
   };

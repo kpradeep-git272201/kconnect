@@ -41,4 +41,8 @@ export class DashboardPage implements OnInit {
   attendanceLogs(){
     this.router.navigate(["/apps/attendance-logs"]);
   }
+
+  studentAttendance(){
+    this.router.navigate(["/apps/student-attendance"]);
+  }
 }

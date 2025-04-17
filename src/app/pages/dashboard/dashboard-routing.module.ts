@@ -19,11 +19,11 @@ const routes: Routes = [
   //   loadComponent: () => import('./owner-dashbaord/owner-dashbaord.page').then( m => m.OwnerDashbaordPage),
   //   canActivate: [AuthGuard]
   // },
-  // {
-  //   path: 'principal-dashbaord',
-  //   loadComponent: () => import('./principal-dashbaord/principal-dashbaord.page').then( m => m.PrincipalDashbaordPage),
-  //   canActivate: [AuthGuard]
-  // },
+  {
+    path: 'student-attendance',
+    loadComponent: () => import('./student-attendance/student-attendance.page').then( m => m.StudentAttendancePage),
+    canActivate: [AuthGuard]
+  },
   {
     path: 'student-profile',
     loadComponent: () => import('./student-profile/student-profile.page').then(m => m.StudentProfilePage),
@@ -69,6 +69,9 @@ const routes: Routes = [
     loadComponent: () => import('./attendance-logs/attendance-logs.page').then( m => m.AttendanceLogsPage),
     canActivate: [AuthGuard]
   },
+
+
+
 ];
 
 @NgModule({

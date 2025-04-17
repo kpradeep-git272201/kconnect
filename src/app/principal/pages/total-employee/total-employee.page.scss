@@ -29,3 +29,7 @@ ion-badge.status-badge {
   font-weight: bold;
   font-size: 1.1rem;
 }
+
+::ng-deep:host button{
+  background-color: red;
+}

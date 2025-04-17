@@ -4,6 +4,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { IonChip } from "@ionic/angular/standalone";
+import { IconService } from 'src/app/services/icon.service';
 
 @Component({
   selector: 'app-attendance-logs',
@@ -16,8 +17,11 @@ export class AttendanceLogsPage implements OnInit {
   attendanceLogs:any=[];
   constructor(private commonService: CommonService,
     private loadingService: LoadingService,
-    private alertService: AlertService
-  ) { }
+    private alertService: AlertService,
+    private iconService: IconService
+  ) {
+    this.iconService.registerIcons();
+   }
 
   ngOnInit() {
     this.getAttendanceLogs();
@@ -41,18 +45,13 @@ export class AttendanceLogsPage implements OnInit {
   }
 
   calculateWorkingHours(inTime: string, outTime: string): string {
-    try {
-      const inDate = new Date(`1970-01-01T${inTime}`);
-      const outDate = new Date(`1970-01-01T${outTime}`);
-      const diffMs = outDate.getTime() - inDate.getTime();
-  
-      const hours = Math.floor(diffMs / (1000 * 60 * 60));
-      const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
-  
-      return `${hours}h ${minutes}m`;
-    } catch {
-      return 'N/A';
-    }
+    const inDate = new Date(`1970-01-01T${inTime}`);
+    const outDate = new Date(`1970-01-01T${outTime}`);
+    const diffMs = outDate.getTime() - inDate.getTime();
+    const hours = Math.floor(diffMs / 3600000);
+    const minutes = Math.floor((diffMs % 3600000) / 60000);
+    return `${hours}h ${minutes}m`;
   }
+  
   
 }

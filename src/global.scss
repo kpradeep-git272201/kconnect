@@ -175,9 +175,9 @@ ion-back-button {
   color: white !important;
 }
 
-.custom-alert .alert-head .alert-title.sc-ion-alert-md {
-  padding-top: 0 !important;
-}
+// .custom-alert .alert-head .alert-title.sc-ion-alert-md {
+//   padding-top: 0 !important;
+// }
 
 .toast-success {
   --background: #d4edda !important; /* Light green */
@@ -265,4 +265,8 @@ ion-badge {
 
   height: 38px !important; /* Adjust height */
   transition: all 0.3s ease-in-out;
+}
+
+.alert-head.sc-ion-alert-md+.alert-message.sc-ion-alert-md{
+  padding-top: 15px !important;
 }

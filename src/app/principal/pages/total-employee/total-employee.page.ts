@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import moment from 'moment';
 import { AlertService } from 'src/app/services/alert.service';
 import { CommonService } from 'src/app/services/common.service';
 import { LoadingService } from 'src/app/services/loading.service';
@@ -12,22 +13,31 @@ import { SharedModule } from 'src/app/shared/shared.module';
   imports: [SharedModule],
 })
 export class TotalEmployeePage implements OnInit {
+  currentDate: string = new Date().toISOString().split('T')[0];
   attendanceData: any=[];
   filteredEmployee: any = []; 
+  
   constructor(private commonService: CommonService,
     private alertService: AlertService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
   ) {}
 
   ngOnInit() {
-    this.getEmployeeList();
+    const currentDate=moment().format("YYYY-MM-DD");
+    this.getEmployeeList(currentDate);
   }
+  
 
-  async getEmployeeList() {
+  onDateChange(event: any) {
+    const selectedDate = event.detail.value;
+    console.log('Selected date:', selectedDate);
+    this.getEmployeeList(selectedDate);
+  }
+  async getEmployeeList(currentDate:any) {
     await this.loadingService.showLoading();
     const data = {
       branchId:0,
-      fromDate:'2025-03-31'
+      fromDate: currentDate
     };
     this.commonService.getEmployeeList(data).subscribe(async (resp) => {
       if(resp){

@@ -31,9 +31,8 @@ export class MarkAttendancePage implements OnInit {
   dateTime: string = moment().format('DD-MMM-YYYY hh:mm:ss A');
   markAttendanceFailed: boolean=false;
   showCamera=true;
+  isFaseDetected:any;
   constructor(private cd: ChangeDetectorRef,
-    private modalController: ModalController,
-    private alertController: AlertController,
     private commonService: CommonService,
     private loadingService: LoadingService,
     private alertService: AlertService
@@ -41,10 +40,16 @@ export class MarkAttendancePage implements OnInit {
 
 
   async ngAfterViewInit() {
+    //this.getFaceDetected();
     this.startDetection();
     await this.loadingService.hideLoading();
   }
 
+  async getFaceDetected(){
+    const result:any = await MyCustomPlugin.isFacePresent();
+    console.log(result.faceDetected);
+    this.isFaseDetected=result.faceDetected;
+  }
   ngOnDestroy() {
     this.stopCamera();
   }
@@ -150,7 +155,7 @@ export class MarkAttendancePage implements OnInit {
         this.successMessage="";
        }
       },
-      async (error) => {
+      async () => {
         await this.loadingService.hideLoading();
         this.successMessage="";
         this.markAttendanceFailed=true;
@@ -167,47 +172,4 @@ export class MarkAttendancePage implements OnInit {
     this.successMessage="";
     this.startDetection();
   }
-
-
-  // async getModel(){
-  //     const alert = await this.alertController.create({
-  //       header: 'Alert',
-  //       subHeader: 'Important message',
-  //       message: `<div class="alert-thumbnail">
-  //       <img src="assets/imgs/sample.jpg" alt="Thumbnail" />
-  //       <p>This is an alert message with a thumbnail.</p>
-  //     </div>`,
-  //       cssClass: 'custom-alert',
-  //       buttons: ['OK'],
-  //     });
-  //     await alert.present();
-  //   }
-  // }
-  // async openSuccessModal(capturedImage: string) {
-  //   const modal = await this.modalController.create({
-  //     component: AttendanceSuccessModalComponent,
-  //     componentProps: {
-  //       photo: capturedImage,
-  //       time: new Date().toLocaleString(),
-  //       message: 'Your attendance has been marked successfully!'
-  //     },
-  //    cssClass: 'alert-style-modal'
-  //   });
-  
-  //   await modal.present();
-  // }
-
-  // async openCustomPopup(){
-  //   const modal = await this.modalController.create({
-  //     component: AttendanceSuccessModalComponent,
-  //     componentProps: {
-  //       title: 'My Custom Popup',
-  //       message: `<strong>Hello!</strong><br>This is a custom HTML popup.`
-  //     },
-  //     showBackdrop: true,
-  //     backdropDismiss: false,
-  //     cssClass: 'my-custom-modal'
-  //   });
-
-  //   await modal.present();
 }

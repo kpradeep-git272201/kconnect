@@ -147,6 +147,61 @@ export class CommonService {
     );
   }
 
+  getStudentList(classId:any, sectionId:any){
+    const token = localStorage.getItem('token');
+    const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.studentList}/${classId}/${sectionId}`;
+    const headers = new HttpHeaders().set('content-type', 'application/json').set('Accept', 'application/json').set('Authorization', `Bearer ${token}`);
+    return this.request('GET', url, { headers: headers, reportProgress: false, observe: 'response' }).pipe(
+      map(resp => {
+        return resp;
+      }),
+      catchError(error => {
+        return of(error);
+      })
+    );
+  }
+
+  updateStuAttendance(data:any, classId:any, sectionId:any){
+    const token = localStorage.getItem('token');
+    const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.studentList}/${classId}/${sectionId}`;
+    const headers = new HttpHeaders().set('content-type', 'application/json').set('Accept', 'application/json').set('Authorization', `Bearer ${token}`);
+    return this.request('PATCH', url, { body: data, headers: headers, reportProgress: false, observe: 'response' }).pipe(
+      map(resp => {
+        return resp;
+      }),
+      catchError(error => {
+        return of(error);
+      })
+    );
+  }
+  addStuAttendance(data:any){
+    const token = localStorage.getItem('token');
+    const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.studentAttendance}`;
+    const headers = new HttpHeaders().set('content-type', 'application/json').set('Accept', 'application/json').set('Authorization', `Bearer ${token}`);
+    return this.request('POST', url, { body: data, headers: headers, reportProgress: false, observe: 'response' }).pipe(
+      map(resp => {
+        return resp;
+      }),
+      catchError(error => {
+        return of(error);
+      })
+    );
+  }
+
+
+  getClassList(){
+    const token = localStorage.getItem('token');
+    const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.classList}`;
+    const headers = new HttpHeaders().set('content-type', 'application/json').set('Accept', 'application/json').set('Authorization', `Bearer ${token}`);
+    return this.request('GET', url, { headers: headers, reportProgress: false, observe: 'response' }).pipe(
+      map(resp => {
+        return resp;
+      }),
+      catchError(error => {
+        return of(error);
+      })
+    );
+  }
   getPresentEmployee(branchId:any){
     const token = localStorage.getItem('token');
     const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.presentEmployee}${branchId}`;

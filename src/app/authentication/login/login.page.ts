@@ -59,20 +59,27 @@ export class LoginPage implements OnInit {
 
       this.commonService.login(loginBody).subscribe(
         (resp) => {
-          this.isLoading = false;
-          this.errorMessagefromService = '';
-          localStorage.setItem('loggedUser', JSON.stringify(resp.body));
-          localStorage.setItem('token', resp.headers.get('authorization'));
-          this.loginForm.reset();
-          if(resp.body.roleId==19){ // Emplayee dashbaord
-            this.router.navigate(['/apps/dashboard']);
-          }else if(resp.body.roleId==2){  // Owner dashbaord
-            this.router.navigate(['/owner/dashboard']);
-          }else if(resp.body.roleId==3){ // Principle dashbaord
-            this.router.navigate(['/principal/dashboard']);
+          if(resp){
+            this.isLoading = false;
+            this.errorMessagefromService = '';
+            localStorage.setItem('loggedUser', JSON.stringify(resp.body));
+            localStorage.setItem('token', resp.headers.get('authorization'));
+            this.loginForm.reset();
+            if(resp.body.roleId==19){ // Emplayee dashbaord
+              this.router.navigate(['/apps/dashboard']);
+            }else if(resp.body.roleId==2){  // Owner dashbaord
+              this.router.navigate(['/owner/dashboard']);
+            }else if(resp.body.roleId==3){ // Principle dashbaord
+              this.router.navigate(['/principal/dashboard']);
+            }else{
+              this.alertService.showAlert("Access Denied!", "Your role has not been assigned yet. Please contact the administrator for assistance.", "alert");
+            }
           }else{
-            this.alertService.showAlert("Access Denied!", "Your role has not been assigned yet. Please contact the administrator for assistance.", "alert");
+            this.isLoading = false;
+            this.errorMessagefromService = 'Invalid login credential!';
+            this.loginForm.markAllAsTouched();
           }
+      
         },
         (error) => {
           this.loginForm.reset();

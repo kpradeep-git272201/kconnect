@@ -4,48 +4,11 @@
   height: 80vh;
   overflow: hidden;
   background: white; // White background outside the circle
+  flex-direction: column;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
-video {
-  position: absolute;
-  // width: 100%;
-  // height: 100%;
-  object-fit: cover; // Ensures the face is properly visible inside the circle
-}
-
-.overlay-circle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 23rem;
-  height: 23rem;
-  border-radius: 50%;
-  border: 3px solid white;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 0 2000px white; // Creates white overlay outside the circle
-  pointer-events: none;
-}
-
-//8888888888888888888888888
-// .camera-container {
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: center;
-//   padding: 20px;
-// }
-
-// .circle-frame {
-//   width: 23rem;
-//   height: 23rem;
-//   // border: 6px solid #4CAF50;
-//   border-radius: 50%;
-//   background-color: black;
-//   margin-bottom: 20px;
-// }
 
 .camera-container {
   display: flex;
@@ -113,7 +76,6 @@ video {
   }
 }
 
-//////
 .attendance-alert-card {
   background: #f4fdf8;
   border: 2px solid #32db64;
@@ -138,4 +100,12 @@ video {
   box-shadow: 0 8px 20px rgba(235, 68, 90, 0.2);
   margin: 16px;
   padding: 10px;
+}
+
+.face-message {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  text-align: center;
+  font-weight: 500;
+  font-size: 0.875rem;
 }
