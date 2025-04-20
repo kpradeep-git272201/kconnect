@@ -69,7 +69,11 @@ const routes: Routes = [
     loadComponent: () => import('./attendance-logs/attendance-logs.page').then( m => m.AttendanceLogsPage),
     canActivate: [AuthGuard]
   },
-
+  {
+    path: 'upload-homework',
+    loadComponent: () => import('./upload-homework/upload-homework.page').then( m => m.UploadHomeworkPage),
+    canActivate: [AuthGuard]
+  },
 
 
 ];

@@ -17,6 +17,7 @@ export const AppConfig = {
       studentList : 'madminapi/private/w/v1/studentAttendance',
       classList: 'madminapi/private/r/v1/classTeacherData/getAssignedClasses',
       geotaggedLocation: 'madminapi/private/w/v1/branchLocation',
-      getGeotaggedLocation: 'madminapi/private/w/v1/branchLocation/bySchoolBranch'
+      getGeotaggedLocation: 'madminapi/private/w/v1/branchLocation/bySchoolBranch',
+      uploadHomework: 'madminapi/private/v1/homework'
     }
   };

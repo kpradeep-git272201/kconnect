@@ -47,7 +47,8 @@ import {
   logInOutline,
   checkmarkDoneCircleOutline,
   checkmarkOutline,
-  reloadCircleOutline
+  reloadCircleOutline,
+  bookmarksOutline
 } from 'ionicons/icons';
 
 @Injectable({
@@ -59,6 +60,7 @@ export class IconService {
   }
   registerIcons() {
     addIcons({
+      bookmarksOutline,
       reloadCircleOutline,
       checkmarkOutline,
       checkmarkDoneCircleOutline,
