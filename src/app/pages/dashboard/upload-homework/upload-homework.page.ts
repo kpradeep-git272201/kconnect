@@ -79,7 +79,9 @@ export class UploadHomeworkPage implements OnInit {
         if (resp.status === 200) {
           this.alertService.showAlert('Uploaded!', 'Homework uploaded successfully!', 'success');
           this.homeworkForm.reset();
-          this.homeworkForm.reset({ workSubmissionDate: this.todayDate });
+        }else{
+          this.homeworkForm.reset();
+          this.alertService.showAlert('Alert!', 'Homework/Assignments already added for this date', 'alert');
         }
       },
       async () => {
