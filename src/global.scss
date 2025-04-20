@@ -270,3 +270,15 @@ ion-badge {
 .alert-head.sc-ion-alert-md+.alert-message.sc-ion-alert-md{
   padding-top: 15px !important;
 }
+.no-records-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
+
+.no-records-card {
+  width: 80%;
+  max-width: 21.875rem; /* 350px = 21.875rem */
+  border-radius: 0.75rem; /* 12px = 0.75rem */
+}

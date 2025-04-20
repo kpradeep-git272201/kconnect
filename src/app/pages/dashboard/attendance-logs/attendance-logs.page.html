@@ -68,8 +68,17 @@
   </ng-container>
 
   <ng-template #noData>
-    <ion-text color="medium">
-      <p class="ion-text-center fs-title">No attendance records found.</p>
-    </ion-text>
+    <div class="no-records-container">
+      <ion-card class="no-records-card">
+        <ion-card-header class="ion-text-center">
+          <ion-card-title>
+            <ion-icon name="reader-outline"></ion-icon>
+             No Records</ion-card-title>
+        </ion-card-header>
+        <ion-card-content class="ion-text-center">
+          <p>Oops! You haven't marked your attendance yet.<br>Start your day by checking in.</p>
+        </ion-card-content>
+      </ion-card>
+    </div>
   </ng-template>
 </ion-content>

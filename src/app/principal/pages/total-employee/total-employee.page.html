@@ -76,10 +76,17 @@
   </ng-container>
 
   <ng-template #noData>
-    <ion-text color="medium">
-      <div style="text-align: center; margin-top: 2rem; font-size: 1.2rem;">
-        No employee attendance found
-      </div>
-    </ion-text>
+    <div class="no-records-container">
+      <ion-card class="no-records-card">
+        <ion-card-header class="ion-text-center">
+          <ion-card-title>
+            <ion-icon name="reader-outline"></ion-icon>
+             No Records</ion-card-title>
+        </ion-card-header>
+        <ion-card-content class="ion-text-center">
+          <p>Record not found, Plase add Employee.</p>
+        </ion-card-content>
+      </ion-card>
+    </div>
   </ng-template>
 </ion-content>

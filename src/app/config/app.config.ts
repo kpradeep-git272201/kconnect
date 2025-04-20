@@ -15,6 +15,8 @@ export const AppConfig = {
       presentEmployee : 'madminapi/private/r/v1/employeeAttendanceData/todayData/',
       myAttendance : 'madminapi/private/w/v1/employeeAttendance',
       studentList : 'madminapi/private/w/v1/studentAttendance',
-      classList: 'madminapi/private/r/v1/classTeacherData/getAssignedClasses'
+      classList: 'madminapi/private/r/v1/classTeacherData/getAssignedClasses',
+      geotaggedLocation: 'madminapi/private/w/v1/branchLocation',
+      getGeotaggedLocation: 'madminapi/private/w/v1/branchLocation/bySchoolBranch'
     }
   };

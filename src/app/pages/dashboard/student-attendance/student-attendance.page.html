@@ -50,9 +50,17 @@
   </ng-container>
 
   <ng-template #noData>
-    <div class="empty-state">
-      <!-- <img src="assets/no-data.svg" width="140" alt="No data" /> -->
-      <p>No student attendance found</p>
+    <div class="no-records-container">
+      <ion-card class="no-records-card">
+        <ion-card-header class="ion-text-center">
+          <ion-card-title>
+            <ion-icon name="reader-outline"></ion-icon>
+             No Records</ion-card-title>
+        </ion-card-header>
+        <ion-card-content class="ion-text-center">
+          <p>Oops! You haven't marked your attendance yet.<br>Start your day by checking in.</p>
+        </ion-card-content>
+      </ion-card>
     </div>
   </ng-template>
   

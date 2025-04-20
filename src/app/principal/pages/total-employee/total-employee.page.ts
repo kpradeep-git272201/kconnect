@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import moment from 'moment';
 import { AlertService } from 'src/app/services/alert.service';
 import { CommonService } from 'src/app/services/common.service';
+import { IconService } from 'src/app/services/icon.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 
@@ -20,7 +21,10 @@ export class TotalEmployeePage implements OnInit {
   constructor(private commonService: CommonService,
     private alertService: AlertService,
     private loadingService: LoadingService,
-  ) {}
+    private iconService: IconService
+  ) {
+    this.iconService.registerIcons();
+  }
 
   ngOnInit() {
     const currentDate=moment().format("YYYY-MM-DD");

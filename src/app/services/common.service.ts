@@ -174,6 +174,33 @@ export class CommonService {
       })
     );
   }
+  geotaggedLocation(data:any){
+    const token = localStorage.getItem('token');
+    const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.geotaggedLocation}`;
+    const headers = new HttpHeaders().set('content-type', 'application/json').set('Accept', 'application/json').set('Authorization', `Bearer ${token}`);
+    return this.request('POST', url, { body: data, headers: headers, reportProgress: false, observe: 'response' }).pipe(
+      map(resp => {
+        return resp;
+      }),
+      catchError(error => {
+        return of(error);
+      })
+    );
+  }
+
+  getBranchLatLong(){
+    const token = localStorage.getItem('token');
+    const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.getGeotaggedLocation}`;
+    const headers = new HttpHeaders().set('content-type', 'application/json').set('Accept', 'application/json').set('Authorization', `Bearer ${token}`);
+    return this.request('GET', url, { headers: headers, reportProgress: false, observe: 'response' }).pipe(
+      map(resp => {
+        return resp;
+      }),
+      catchError(error => {
+        return of(error);
+      })
+    );
+  }
   addStuAttendance(data:any){
     const token = localStorage.getItem('token');
     const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.studentAttendance}`;
@@ -187,8 +214,6 @@ export class CommonService {
       })
     );
   }
-
-
   getClassList(){
     const token = localStorage.getItem('token');
     const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.classList}`;
