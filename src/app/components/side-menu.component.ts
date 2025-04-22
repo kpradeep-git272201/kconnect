@@ -35,7 +35,7 @@ export class SideMenuComponent  implements OnInit {
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   displaySidemenuPrincipal=[1, 8, 6, 7];
   appPages: any=[];
- 
+  loggedUser:any;
   constructor(private router: Router,
     private commonService: CommonService,
     private iconService: IconService,
@@ -75,7 +75,7 @@ export class SideMenuComponent  implements OnInit {
   setMenuByRole() {
     const loggedUser: any = localStorage.getItem('loggedUser');
     let parsedUser: any = loggedUser ? JSON.parse(loggedUser) : null;
-
+    this.loggedUser=parsedUser;
     this.appPages = [
       { id: 1, title: 'Dashboard', url: '/apps/dashboard', icon: 'apps' },
       { id: 2, title: 'Home', url: '/apps/home', icon: 'home' },
