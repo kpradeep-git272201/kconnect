@@ -47,14 +47,16 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     this.registeredStudent = this.databaseService.getRegisteredStd();
   }
-  getLogin() {
+  async getLogin() {
     if (this.loginForm.valid) {
       const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.login}`;
       const loginData = this.loginForm.getRawValue();
 
+      const hashedPassword = await this.hashSHA256(loginData.password);
+
       const loginBody = {
         username: loginData.userNmae,
-        password: loginData.password,
+        password: hashedPassword,
       };
 
       this.commonService.login(loginBody).subscribe(
@@ -92,6 +94,14 @@ export class LoginPage implements OnInit {
       this.errorMessagefromService = '';
       this.loginForm.markAllAsTouched();
     }
+  }
+
+  async hashSHA256(text: string): Promise<string> {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(text);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
   }
 
   getSignIn() {

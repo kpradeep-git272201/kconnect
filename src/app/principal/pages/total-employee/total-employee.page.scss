@@ -33,3 +33,24 @@ ion-badge.status-badge {
 ::ng-deep:host button{
   background-color: red;
 }
+
+.calendar-date-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hidden-date-input {
+  opacity: 0;
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.calendar-icon {
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: blue;
+}

@@ -200,6 +200,21 @@ export class CommonService {
       })
     );
   }
+
+  uploadClassWork(data:any){
+    const token = localStorage.getItem('token');
+    const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.uploadClassWork}`;
+    const headers = new HttpHeaders().set('content-type', 'application/json').set('Accept', 'application/json').set('Authorization', `Bearer ${token}`);
+    return this.request('POST', url, { body: data, headers: headers, reportProgress: false, observe: 'response' }).pipe(
+      map(resp => {
+        return resp;
+      }),
+      catchError(error => {
+        return of(error);
+      })
+    );
+  }
+
   getBranchLatLong(){
     const token = localStorage.getItem('token');
     const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.getGeotaggedLocation}`;
@@ -213,6 +228,34 @@ export class CommonService {
       })
     );
   }
+  getFaculityWiseClass(){
+    const token = localStorage.getItem('token');
+    const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.faculityWiseClass}`;
+    const headers = new HttpHeaders().set('content-type', 'application/json').set('Accept', 'application/json').set('Authorization', `Bearer ${token}`);
+    return this.request('GET', url, { headers: headers, reportProgress: false, observe: 'response' }).pipe(
+      map(resp => {
+        return resp;
+      }),
+      catchError(error => {
+        return of(error);
+      })
+    );
+  }
+
+  getSubjectByClassId(classId:any){
+    const token = localStorage.getItem('token');
+    const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.getSubjectByClassId}/${classId}`;
+    const headers = new HttpHeaders().set('content-type', 'application/json').set('Accept', 'application/json').set('Authorization', `Bearer ${token}`);
+    return this.request('GET', url, { headers: headers, reportProgress: false, observe: 'response' }).pipe(
+      map(resp => {
+        return resp;
+      }),
+      catchError(error => {
+        return of(error);
+      })
+    );
+  }
+
   addStuAttendance(data:any){
     const token = localStorage.getItem('token');
     const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.studentAttendance}`;

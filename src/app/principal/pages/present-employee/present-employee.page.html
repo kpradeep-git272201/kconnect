@@ -8,14 +8,15 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="search-container">
-    <ion-searchbar
-      [placeholder]="'Search Employee'"
-      class="custom-searchbar"
-      (ionInput)="filterEmployees($event)"
-    ></ion-searchbar>
-  </div>
+  
   <ng-container *ngIf="filteredEmployee?.length > 0; else noData">
+    <div class="search-container">
+      <ion-searchbar
+        [placeholder]="'Search Employee'"
+        class="custom-searchbar"
+        (ionInput)="filterEmployees($event)"
+      ></ion-searchbar>
+    </div>
     <ion-card *ngFor="let person of filteredEmployee" class="employee-list-card">
       <ion-item lines="none" class="employee-list-item">
         <!-- In Avatar -->

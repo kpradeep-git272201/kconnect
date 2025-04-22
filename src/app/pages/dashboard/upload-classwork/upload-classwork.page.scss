@@ -10,7 +10,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-ion-button{
+ion-button {
   height: 2.813rem;
 }
 
@@ -37,7 +37,7 @@ ion-button{
 
 /* Make icon clickable like label for input */
 .calendar-icon::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;

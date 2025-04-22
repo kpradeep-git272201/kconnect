@@ -7,29 +7,32 @@ import { IconService } from 'src/app/services/icon.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 
+
 @Component({
-  selector: 'app-upload-homework',
-  templateUrl: './upload-homework.page.html',
-  styleUrls: ['./upload-homework.page.scss'],
+  selector: 'app-upload-classwork',
+  templateUrl: './upload-classwork.page.html',
+  styleUrls: ['./upload-classwork.page.scss'],
   standalone: true,
-  imports: [SharedModule],
+  imports: [SharedModule]
 })
-export class UploadHomeworkPage implements OnInit {
-  @ViewChild('hiddenDateInput') dateInput!: ElementRef;
-  homeworkForm: FormGroup;
+export class UploadClassworkPage implements OnInit {
+@ViewChild('hiddenDateInput') dateInput!: ElementRef;
+  classworkForm: FormGroup;
   classList: any = [];
   subjectList:any = [];
   submitionDate: string = moment().format('YYYY-MM-DD');
   selectedDate: string = '';
+
+
   constructor(
     private fb: FormBuilder,
     private commonService: CommonService,
     private loadingService: LoadingService,
     private alertService: AlertService,
     private iconService: IconService,
-  ) {
+  ) { 
     this.iconService.registerIcons();
-    this.homeworkForm = this.fb.group({
+    this.classworkForm = this.fb.group({
       classId: [null, Validators.required],
       subjectId: [null, Validators.required],
       workSubmissionDate: [this.submitionDate],
@@ -50,10 +53,10 @@ export class UploadHomeworkPage implements OnInit {
   
   formatDate(event: any) {
     this.submitionDate = event.target.value;
-    this.homeworkForm.controls['workSubmissionDate'].setValue(event.target.value);
+    this.classworkForm.controls['workSubmissionDate'].setValue(event.target.value);
   }
   onClassChange(event: any) {
-    this.homeworkForm.patchValue({ classId: event.detail.value });
+    this.classworkForm.patchValue({ classId: event.detail.value });
     this.getSubjectListClassWise(event.detail.value);
   }
 
@@ -92,28 +95,28 @@ export class UploadHomeworkPage implements OnInit {
   }
 
   async submitHomework() {
-    if (this.homeworkForm.invalid) {
-      this.homeworkForm.markAllAsTouched();
+    if (this.classworkForm.invalid) {
+      this.classworkForm.markAllAsTouched();
       return;
     }
 
-    const payload = this.homeworkForm.value;
+    const payload = this.classworkForm.value;
 
     await this.loadingService.showLoading();
-    this.commonService.uploadHomeWork(payload).subscribe(
+    this.commonService.uploadClassWork(payload).subscribe(
       async (resp) => {
         await this.loadingService.hideLoading();
         if (resp.status === 200) {
           this.alertService.showAlert(
             'Uploaded!',
-            'Homework uploaded successfully!',
+            'Classwork uploaded successfully!',
             'success',
           );
-          this.homeworkForm.reset();
+          this.classworkForm.reset();
         } else {
           this.alertService.showAlert(
             'Alert!',
-            'Homework/Assignments already added for this date',
+            'Classwork/Assignments already added for this date',
             'alert',
           );
         }

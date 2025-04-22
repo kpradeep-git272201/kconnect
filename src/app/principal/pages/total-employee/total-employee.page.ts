@@ -14,9 +14,11 @@ import { SharedModule } from 'src/app/shared/shared.module';
   imports: [SharedModule],
 })
 export class TotalEmployeePage implements OnInit {
+  @ViewChild('hiddenDateInput') dateInput!: ElementRef;
   currentDate: string = new Date().toISOString().split('T')[0];
   attendanceData: any=[];
   filteredEmployee: any = []; 
+  submitionDate: any=this.currentDate;;
   
   constructor(private commonService: CommonService,
     private alertService: AlertService,
@@ -31,6 +33,15 @@ export class TotalEmployeePage implements OnInit {
     this.getEmployeeList(currentDate);
   }
   
+
+  openDatePicker() {
+    this.dateInput.nativeElement.click();
+  }
+  
+  
+  formatDate(event: any) {
+    this.submitionDate = event.target.value;
+  }
 
   onDateChange(event: any) {
     const selectedDate = event.detail.value;

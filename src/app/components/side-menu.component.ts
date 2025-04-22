@@ -10,6 +10,7 @@ import { IconService } from '../services/icon.service';
 import { Geolocation } from '@capacitor/geolocation';
 import { LoadingService } from '../services/loading.service';
 import { AlertService } from '../services/alert.service';
+import { MenuService } from '../services/menu.service';
 
 
 @Component({
@@ -20,25 +21,27 @@ import { AlertService } from '../services/alert.service';
 })
 export class SideMenuComponent  implements OnInit {
 
-  public appPages = [
-    { id: 1, title: 'Dashboard', url: '/apps/dashboard', icon: 'apps' },
-    { id: 2, title: 'Home', url: '/apps/home', icon: 'home' },
-    // { id: 3, title: 'Student Profile', url: '/apps/student-profile', icon: 'person-circle' },
-    // { id: 4, title: 'Change Pin', url: '/apps/change-pin', icon: 'create' },
-    { id: 5, title: 'School Profile', url: '/apps/school-profile', icon: 'school' },
-    { id: 6, title: 'About', url: '/apps/about', icon: 'albums' },
-    { id: 7, title: 'Geotagged Location', url: '', icon: 'location' },
-    { id: 8, title: 'Logout', url: '/auth/login', icon: 'log-out' },
+  // public appPages = [
+  //   { id: 1, title: 'Dashboard', url: '/apps/dashboard', icon: 'apps' },
+  //   { id: 2, title: 'Home', url: '/apps/home', icon: 'home' },
+  //   // { id: 3, title: 'Student Profile', url: '/apps/student-profile', icon: 'person-circle' },
+  //   // { id: 4, title: 'Change Pin', url: '/apps/change-pin', icon: 'create' },
+  //   { id: 5, title: 'School Profile', url: '/apps/school-profile', icon: 'school' },
+  //   { id: 6, title: 'About', url: '/apps/about', icon: 'albums' },
+  //   { id: 7, title: 'Geotagged Location', url: '', icon: 'location' },
+  //   { id: 8, title: 'Logout', url: '/auth/login', icon: 'log-out' },
 
-  ];
+  // ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   displaySidemenuPrincipal=[1, 8, 6, 7];
+  appPages: any=[];
  
   constructor(private router: Router,
     private commonService: CommonService,
     private iconService: IconService,
     private loadingService: LoadingService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private menuService: MenuService
   ) {
     this.iconService.registerIcons();
     addIcons({ mailOutline,homeOutline, appsOutline,
@@ -50,22 +53,44 @@ export class SideMenuComponent  implements OnInit {
   }
 
   ngOnInit() {
-    const loggedUser:any = localStorage.getItem('loggedUser');
-    if (loggedUser){
-      const user:any=(loggedUser)? JSON.parse(loggedUser): loggedUser;
-      if(user.roleId==3){
-        this.appPages=this.appPages.filter((menu)=>{
-          return this.displaySidemenuPrincipal.includes(menu.id);
-        })
-      }else{
-        this.appPages=this.appPages.filter((menu)=>{
-          return menu.id != 7;
-        })
-      }
-    } 
+    this.setMenuByRole();
+  this.menuService.menuUpdate$.subscribe(() => {
+    this.setMenuByRole();
+  });
+    // const loggedUser:any = localStorage.getItem('loggedUser');
+    // if (loggedUser){
+    //   const user:any=(loggedUser)? JSON.parse(loggedUser): loggedUser;
+    //   if(user.roleId==3){
+    //     this.appPages=this.appPages.filter((menu)=>{
+    //       return this.displaySidemenuPrincipal.includes(menu.id);
+    //     })
+    //   }else{
+    //     this.appPages=this.appPages.filter((menu)=>{
+    //       return menu.id != 7;
+    //     })
+    //   }
+    // } 
 
   }
+  setMenuByRole() {
+    const loggedUser: any = localStorage.getItem('loggedUser');
+    let parsedUser: any = loggedUser ? JSON.parse(loggedUser) : null;
 
+    this.appPages = [
+      { id: 1, title: 'Dashboard', url: '/apps/dashboard', icon: 'apps' },
+      { id: 2, title: 'Home', url: '/apps/home', icon: 'home' },
+      { id: 5, title: 'School Profile', url: '/apps/school-profile', icon: 'school' },
+      { id: 6, title: 'About', url: '/apps/about', icon: 'albums' },
+      { id: 7, title: 'Geotagged Location', url: '', icon: 'location' },
+      { id: 8, title: 'Logout', url: '/auth/login', icon: 'log-out' },
+    ];
+  
+    if (parsedUser?.roleId == 3) {
+      this.appPages = this.appPages.filter(menu => this.displaySidemenuPrincipal.includes(menu.id));
+    } else {
+      this.appPages = this.appPages.filter(menu => menu.id !== 7);
+    }
+  }
   getNavigate(p:any){
 
     if(p.id==7){
@@ -74,6 +99,7 @@ export class SideMenuComponent  implements OnInit {
     }
     if(p.title=="Logout"){
       localStorage.removeItem('loggedUser');
+      this.menuService.refreshMenu();
       this.commonService.getLogout();
     }else{
       this.router.navigate([p.url]);

@@ -8,23 +8,10 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="search-container">
-    <ion-searchbar
-      style="width: 64%;"
-      [placeholder]="'Search'"
-      class="custom-searchbar"
-      (ionInput)="filterEmployees($event)"
-    ></ion-searchbar>
-  
-    <!-- Calendar Icon + Date Picker -->
-    <div style="display: flex; align-items: center; padding-left: 1rem;">
-      <!-- <ion-icon name="calendar-outline" (click)="openDatePicker()" size="large"></ion-icon> -->
-      <ion-datetime-button datetime="datetime" style="display: block;" ></ion-datetime-button>
-    </div>
-  </div>
+ 
 
 
-  <ion-modal [keepContentsMounted]="true">
+  <!-- <ion-modal [keepContentsMounted]="true">
     <ng-template>
       <ion-datetime 
       presentation="date"
@@ -34,8 +21,27 @@
       show-default-buttons="true"
       ></ion-datetime>
     </ng-template>
-  </ion-modal>
+  </ion-modal> -->
   <ng-container *ngIf="filteredEmployee && filteredEmployee.length > 0; else noData">
+    <div class="search-container">
+      <ion-searchbar
+        style="width: 64%;"
+        [placeholder]="'Search'"
+        class="custom-searchbar"
+        (ionInput)="filterEmployees($event)"
+      ></ion-searchbar>
+    
+      <!-- Calendar Icon + Date Picker -->
+      <div style="display: flex; align-items: center; padding-left: 1rem;">
+        <div class="calendar-date-row">
+          <ion-icon name="calendar-outline" class="calendar-icon" (click)="openDatePicker()"></ion-icon>
+          <input type="date" #hiddenDateInput (change)="formatDate($event)" class="hidden-date-input" />
+          <span class="selected-date-text">{{ submitionDate }}</span>
+        </div>
+        <!-- <ion-icon name="calendar-outline" (click)="openDatePicker()" size="large"></ion-icon> -->
+        <!-- <ion-datetime-button datetime="datetime" style="display: block;" ></ion-datetime-button> -->
+      </div>
+    </div>
     <ion-card *ngFor="let person of filteredEmployee" class="employee-card">
       <ion-item lines="none" class="card-item">
         <ion-avatar slot="start" [ngStyle]="{ 'background-color': person.bgColor }" class="avatar-circle">

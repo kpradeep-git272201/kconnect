@@ -68,7 +68,7 @@
 
   <div class="icon-grid">
     <ion-row class="centered-icons">
-      <ion-col size="4">
+      <ion-col size="4" (click)="goToUploadClasswork()">
         <ion-card class="card">
           <ion-card-header>
             <img src="assets/images/dashboard/uploadclasswork.jpg" />
@@ -163,10 +163,10 @@
         <ion-icon class="icon-md" name="book-outline"></ion-icon>
         <ion-label>Homework</ion-label>
       </ion-tab-button>
-      <ion-tab-button tab="fee">
+      <!-- <ion-tab-button tab="fee">
         <ion-icon class="icon-md" name="card-outline"></ion-icon>
         <ion-label>Pay Fee</ion-label>
-      </ion-tab-button>
+      </ion-tab-button> -->
     </ion-tab-bar>
   </ion-toolbar>
 </ion-footer>
