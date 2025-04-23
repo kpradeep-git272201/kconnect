@@ -42,8 +42,9 @@ export class MarkAttendancePage implements OnInit {
     private loadingService: LoadingService,
     private alertService: AlertService,
   ) {}
-  ngOnDestroy() {
+  async ngOnDestroy() {
     this.stopCamera();
+    await this.loadingService.hideLoading();
   }
 
   async ngOnInit() {
@@ -106,6 +107,14 @@ export class MarkAttendancePage implements OnInit {
               this.inLocation = 0;
               await this.loadingService.hideLoading();
             }
+          }else{
+            this.inLocation = undefined;
+            await this.loadingService.hideLoading();
+            this.alertService.showAlert(
+              'Alert!',
+              'Location will be set by principal login.',
+              'alert',
+            );
           }
         },
         async (error) => {
@@ -224,8 +233,6 @@ export class MarkAttendancePage implements OnInit {
     };
     this.commonService.markAttendance(data).subscribe(
       async (resp) => {
-        console.log(resp);
-
         await this.loadingService.hideLoading();
         if (resp) {
           this.markAttendanceFailed = false;

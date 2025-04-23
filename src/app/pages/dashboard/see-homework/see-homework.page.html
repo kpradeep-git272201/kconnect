@@ -1,0 +1,73 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/apps/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>See Homework</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="filter-buttons">
+    <ion-select placeholder="Class" interface="popover" [(ngModel)]="selectedClass" fill="solid"
+      (ionChange)="onClassChange($event)">
+      <ion-select-option *ngFor="let c of classList" [value]="c.code">Class {{ c.value }}</ion-select-option>
+    </ion-select>
+
+    <ion-select placeholder="Subject" interface="popover" [(ngModel)]="selectedSubject" fill="solid"
+    (ionChange)="onSubjectChange($event)">
+      <ion-select-option *ngFor="let s of subjectList" [value]="s.code">{{ s.value }}</ion-select-option>
+    </ion-select>
+
+    <ion-select placeholder="Month" interface="popover" [(ngModel)]="selectedMonth" fill="solid"
+    (ionChange)="onMonthChange($event)">
+      <ion-select-option *ngFor="let m of months" [value]="m.value">{{ m.name }}</ion-select-option>
+    </ion-select>
+  </div>
+
+  <div *ngIf="!selectedClass && !selectedSubject && !selectedMonth" class="info-message">
+    <ion-card color="light">
+      <ion-card-content class="ion-text-center">
+        <ion-icon name="information-circle-outline" size="large"></ion-icon>
+        <p>Please select Class, Subject and Month first.</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <ng-container *ngIf="viewWorkList?.length > 0; else noData">
+    <ion-list>
+      <ion-card *ngFor="let work of viewWorkList">
+        <ion-card-header>
+          <ion-card-title>{{ work.workTitle }}</ion-card-title>
+          <ion-card-subtitle>Date: {{ work.workSubmissionDate }}</ion-card-subtitle>
+        </ion-card-header>
+    
+        <ion-card-content>
+          <div class="content-row">
+            <p>{{ work.workContent }}</p>
+            <ion-button fill="clear" size="small" (click)="editHomework(work)">
+              <ion-icon slot="start" name="create-outline"></ion-icon>
+              Edit
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+  </ng-container>
+
+  <ng-template #noData>
+    <div class="no-records-container">
+      <ion-card class="no-records-card">
+        <ion-card-header class="ion-text-center">
+          <ion-card-title>
+            <ion-icon name="reader-outline"></ion-icon>
+             No Records</ion-card-title>
+        </ion-card-header>
+        <ion-card-content class="ion-text-center">
+          <p>Home work not found</p>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </ng-template>
+
+</ion-content>

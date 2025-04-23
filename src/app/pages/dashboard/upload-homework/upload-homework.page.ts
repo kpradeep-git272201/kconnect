@@ -62,9 +62,10 @@ export class UploadHomeworkPage implements OnInit {
     this.commonService.getSubjectByClassId(classId).subscribe(
       async (resp) => {
         await this.loadingService.hideLoading();
-        if (resp?.body>0) {
+        if (resp?.body.length>0) {
           this.subjectList = resp.body;
         }else{
+          this.subjectList=[];
           await this.loadingService.hideLoading();
           this.alertService.showAlert('Alert!', 'Subject not found for selected class', 'alert');
         }

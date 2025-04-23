@@ -1,0 +1,29 @@
+.filter-buttons {
+  margin: 0.875rem;
+  display: flex;
+  gap: 0.875rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+ion-select {
+  flex: 1;
+  min-width: 6.25rem;
+}
+.content-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.content-row p {
+  margin: 0;
+  flex: 1;
+}
+
+::ng-deep .select-fill-solid {
+  --background: lightblue; // Your custom background
+  --border-radius: 0px !important;
+  --padding-start: 20px;
+  --padding-end: 20px;
+  --border-color: none;
+  min-height: 3.125rem;
+}

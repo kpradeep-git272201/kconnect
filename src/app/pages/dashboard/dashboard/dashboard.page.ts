@@ -53,4 +53,12 @@ export class DashboardPage implements OnInit {
   goToUploadClasswork(){
     this.router.navigate(["/apps/upload-classwork"]);
   }
+
+  goToSeeHomework(){
+    this.router.navigate(["/apps/see-homework"]);
+  }
+  goToSeeClasswork(){
+    this.router.navigate(["/apps/see-classwork"]);
+  }
+  
 }
