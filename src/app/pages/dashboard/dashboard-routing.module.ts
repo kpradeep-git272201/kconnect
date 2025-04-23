@@ -102,6 +102,21 @@ const routes: Routes = [
       ),
     canActivate: [AuthGuard],
   },
+
+  {
+    path: 'see-classwork',
+    loadComponent: () =>
+      import('./see-classwork/see-classwork.page').then(
+        (m) => m.SeeClassworkPage,
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'see-homework',
+    loadComponent: () =>
+      import('./see-homework/see-homework.page').then((m) => m.SeeHomeworkPage),
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({

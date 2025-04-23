@@ -1,7 +1,7 @@
 import { environment } from 'src/environments/environment.prod';
 
 export const AppConfig = {
-  APP_VERSION: "v 0.13",
+  APP_VERSION: "v 0.14",
   BASE_API: environment.apiBaseUrl,
   ENDPOINTS: {
     login: 'madminapi/publicApi/v1/auth/login',
@@ -29,5 +29,7 @@ export const AppConfig = {
     getSubjectByClassId:
       'madminapi/private/v1/facultyData/facultyAssignedSubjects',
     uploadClassWork: 'madminapi/private/v1/classwork',
+    getSeeClasswork: 'madminapi/private/v1/r/classworkData',
+    getSeeHomework: 'madminapi/private/v1/r/homeworkData'
   },
 };

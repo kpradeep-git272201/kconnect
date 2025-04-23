@@ -35,8 +35,9 @@ export class MarkAttendanceEmpPage implements OnInit {
     private alertService: AlertService,
   ) {}
 
-  ngOnDestroy() {
+  async ngOnDestroy() {
     this.stopCamera();
+    await this.loadingService.hideLoading();
   }
 
   async ngOnInit() {
@@ -99,6 +100,14 @@ export class MarkAttendanceEmpPage implements OnInit {
               this.inLocation = 0;
               await this.loadingService.hideLoading();
             }
+          }else{
+            this.inLocation = undefined;
+            await this.loadingService.hideLoading();
+            this.alertService.showAlert(
+              'Alert!',
+              'Location not set. Principal login required.',
+              'alert',
+            );
           }
         },
         async (error) => {
