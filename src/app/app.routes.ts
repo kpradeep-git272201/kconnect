@@ -17,6 +17,27 @@ export const routes: Routes = [
     loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule), 
     canActivate: [AuthGuard]
   },
+  {
+    path: 'owner',
+    loadChildren: () => import('./owner/owner.module').then(m => m.OwnerModule), 
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'principal',
+    loadChildren: () => import('./principal/principal.module').then(m => m.PrincipalModule), 
+    canActivate: [AuthGuard]
+  },
+ 
+
+
+
+
+
+
+
+
+ 
+
 
 
   // {

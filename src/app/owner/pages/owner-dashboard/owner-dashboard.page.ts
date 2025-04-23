@@ -2,15 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/services/common.service';
 import { IconService } from 'src/app/services/icon.service';
 import { SharedModule } from 'src/app/shared/shared.module';
-
 @Component({
-  selector: 'app-owner-dashbaord',
-  templateUrl: './owner-dashbaord.page.html',
-  styleUrls: ['./owner-dashbaord.page.scss'],
+  selector: 'app-owner-dashboard',
+  templateUrl: './owner-dashboard.page.html',
+  styleUrls: ['./owner-dashboard.page.scss'],
   standalone: true,
   imports: [SharedModule]
 })
-export class OwnerDashbaordPage implements OnInit {
+export class OwnerDashboardPage implements OnInit {
   user: any;
 
   constructor(private commonService: CommonService,

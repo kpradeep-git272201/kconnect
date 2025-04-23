@@ -47,32 +47,42 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     this.registeredStudent = this.databaseService.getRegisteredStd();
   }
-  getLogin() {
+  async getLogin() {
     if (this.loginForm.valid) {
       const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.login}`;
       const loginData = this.loginForm.getRawValue();
 
+      const hashedPassword = await this.hashSHA256(loginData.password);
+
       const loginBody = {
         username: loginData.userNmae,
-        password: loginData.password,
+        password: hashedPassword,
       };
 
       this.commonService.login(loginBody).subscribe(
         (resp) => {
-          this.isLoading = false;
-          this.errorMessagefromService = '';
-          localStorage.setItem('loggedUser', JSON.stringify(resp.body));
-          localStorage.setItem('token', resp.headers.get('authorization'));
-          this.loginForm.reset();
-          if(resp.body.roleId==19){ // Emplayee dashbaord
-            this.router.navigate(['/apps/dashboard']);
-          }else if(resp.body.roleId==2){  // Owner dashbaord
-            this.router.navigate(['/apps/owner-dashbaord']);
-          }else if(resp.body.roleId==3){ // Principle dashbaord
-            this.router.navigate(['/apps/principal-dashbaord']);
+          if(resp){
+            this.isLoading = false;
+            this.errorMessagefromService = '';
+            localStorage.setItem('loggedUser', JSON.stringify(resp.body));
+            localStorage.setItem('token', resp.headers.get('authorization'));
+            window.location.reload();
+            this.loginForm.reset();
+            if(resp.body.roleId==19){ // Emplayee dashbaord
+              this.router.navigate(['/apps/dashboard']);
+            }else if(resp.body.roleId==2){  // Owner dashbaord
+              this.router.navigate(['/owner/dashboard']);
+            }else if(resp.body.roleId==3){ // Principle dashbaord
+              this.router.navigate(['/principal/dashboard']);
+            }else{
+              this.alertService.showAlert("Access Denied!", "Your role has not been assigned yet. Please contact the administrator for assistance.", "alert");
+            }
           }else{
-            this.alertService.showAlert("Access Denied!", "Your role has not been assigned yet. Please contact the administrator for assistance.", "alert");
+            this.isLoading = false;
+            this.errorMessagefromService = 'Invalid login credential!';
+            this.loginForm.markAllAsTouched();
           }
+      
         },
         (error) => {
           this.loginForm.reset();
@@ -85,6 +95,14 @@ export class LoginPage implements OnInit {
       this.errorMessagefromService = '';
       this.loginForm.markAllAsTouched();
     }
+  }
+
+  async hashSHA256(text: string): Promise<string> {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(text);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
   }
 
   getSignIn() {

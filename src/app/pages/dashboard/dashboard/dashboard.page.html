@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons *ngIf="user?.roleId==19" slot="start">
+    <ion-buttons slot="start">
       <ion-menu-button style="color: white;"></ion-menu-button>
     </ion-buttons>
     <ion-title style="color: white;">Dashboard</ion-title>
@@ -40,7 +40,7 @@
             </ion-card-content>
           </ion-card>
         </ion-col>
-        <ion-col size="4">
+        <ion-col size="4" (click)="studentAttendance()">
           <ion-card class="card">
             <ion-card-header>
               <img src="assets/images/dashboard/student_attendance.jpg" />
@@ -51,7 +51,7 @@
             </ion-card-content>
           </ion-card>
         </ion-col>
-        <ion-col size="4">
+        <ion-col size="4" (click)="goToUploadHomework()">
           <ion-card class="card">
             <ion-card-header>
               <img src="assets/images/dashboard/uploadhomework.jpg" />
@@ -68,7 +68,7 @@
 
   <div class="icon-grid">
     <ion-row class="centered-icons">
-      <ion-col size="4">
+      <ion-col size="4" (click)="goToUploadClasswork()">
         <ion-card class="card">
           <ion-card-header>
             <img src="assets/images/dashboard/uploadclasswork.jpg" />
@@ -163,10 +163,10 @@
         <ion-icon class="icon-md" name="book-outline"></ion-icon>
         <ion-label>Homework</ion-label>
       </ion-tab-button>
-      <ion-tab-button tab="fee">
+      <!-- <ion-tab-button tab="fee">
         <ion-icon class="icon-md" name="card-outline"></ion-icon>
         <ion-label>Pay Fee</ion-label>
-      </ion-tab-button>
+      </ion-tab-button> -->
     </ion-tab-bar>
   </ion-toolbar>
 </ion-footer>

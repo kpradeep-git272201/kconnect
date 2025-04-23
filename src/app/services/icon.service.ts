@@ -40,7 +40,15 @@ import {
   eyeOutline,
   cloudUploadOutline,
   checkboxOutline,
-  readerOutline
+  readerOutline,
+  calendarOutline,
+  timeOutline,
+  hourglassOutline,
+  logInOutline,
+  checkmarkDoneCircleOutline,
+  checkmarkOutline,
+  reloadCircleOutline,
+  bookmarksOutline
 } from 'ionicons/icons';
 
 @Injectable({
@@ -52,6 +60,14 @@ export class IconService {
   }
   registerIcons() {
     addIcons({
+      bookmarksOutline,
+      reloadCircleOutline,
+      checkmarkOutline,
+      checkmarkDoneCircleOutline,
+      logInOutline,
+      hourglassOutline,
+      timeOutline,
+      calendarOutline,
       readerOutline,
       checkboxOutline,
       cloudUploadOutline,

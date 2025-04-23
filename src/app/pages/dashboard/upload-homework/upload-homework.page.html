@@ -1,0 +1,83 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/apps/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Upload Homework</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="homeworkForm">
+    <ion-card class="homework-card">
+      <ion-card-header>
+        <ion-card-title class="centered-title">
+          <ion-icon name="book-outline"></ion-icon>
+          Homework Details
+        </ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <!-- <ion-item>
+          <ion-label position="stacked">Submition Date (yyyy-mm-dd)</ion-label>
+          <div class="calendar-date-row">
+            <ion-icon name="calendar-outline" class="calendar-icon" (click)="openDatePicker()"></ion-icon>
+            <input type="date" #hiddenDateInput (change)="formatDate($event)" class="hidden-date-input" />
+            <span class="selected-date-text">{{ submitionDate }}</span>
+          </div>
+        </ion-item> -->
+        <ion-item>
+          <ion-label position="stacked">Class</ion-label>
+          <ion-select formControlName="classId" interface="popover" placeholder="Select" (ionChange)="onClassChange($event)">
+            <ion-select-option *ngFor="let class of classList" [value]="class.code">
+              Class {{ class.value }}
+            </ion-select-option>
+          </ion-select>
+          <ion-text color="danger" *ngIf="homeworkForm.get('classId')?.touched && homeworkForm.get('classId')?.invalid">
+            <small>Class is required</small>
+          </ion-text>
+        </ion-item>
+
+        <ion-item *ngIf="homeworkForm.controls['classId']?.value">
+          <ion-label position="stacked">Subject</ion-label>
+          <ion-select formControlName="subjectId" interface="popover" placeholder="Select">
+            <ion-select-option *ngFor="let subject of subjectList" [value]="subject.code">
+              {{ subject.value }}
+            </ion-select-option>
+          </ion-select>
+          <ion-text color="danger" *ngIf="homeworkForm.get('subjectId')?.touched && homeworkForm.get('subjectId')?.invalid">
+            <small>Subject is required</small>
+          </ion-text>
+        </ion-item>
+
+        <!-- Work Title Input -->
+        <ion-item>
+          <ion-label position="floating">Work Title</ion-label>
+          <ion-input type="text" formControlName="workTitle"></ion-input>
+          <ion-text color="danger" *ngIf="homeworkForm.get('workTitle')?.touched && homeworkForm.get('workTitle')?.invalid">
+            <small>Work Title is required</small>
+          </ion-text>
+        </ion-item>
+       
+
+        <!-- Work Content Textarea -->
+        <ion-item>
+          <ion-label position="floating">Work Content</ion-label>
+          <ion-textarea autoGrow="true" formControlName="workContent"></ion-textarea>
+          <ion-text color="danger" *ngIf="homeworkForm.get('workContent')?.touched && homeworkForm.get('workContent')?.invalid">
+            <small>Work Content is required</small>
+          </ion-text>
+        </ion-item>
+     
+
+        <!-- Submit Button -->
+        <div class="ion-text-center ion-margin-top">
+          <ion-button expand="block" color="primary" (click)="submitHomework()">
+            <ion-icon name="cloud-upload-outline" slot="start"></ion-icon>
+            Upload Homework
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </form>
+</ion-content>

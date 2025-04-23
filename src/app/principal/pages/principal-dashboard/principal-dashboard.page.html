@@ -1,13 +1,11 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <!-- <ion-title>Principal Dashboard</ion-title> -->
-    <ion-buttons slot="end">
-      <ion-button>
-        <ion-icon name="notifications-outline"></ion-icon>
-      </ion-button>
-      <ion-button (click)="logout()">
-        <ion-icon name="log-out-outline"></ion-icon>
-      </ion-button>
+    <ion-buttons slot="start">
+      <ion-menu-button style="color: white;"></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="color: white;">Dashboard</ion-title>
+    <ion-buttons slot="end" style="margin-right: 0.875rem;">
+      <ion-icon class="notifications icon-md" name="notifications-outline"></ion-icon>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -26,7 +24,7 @@
   </ion-card>
 
   <ion-grid>
-    <ion-row>
+    <!-- <ion-row>
       <ion-col size="6" size-sm="12">
         <ion-card class="stat-card amount-card">
           <ion-card-header>
@@ -45,23 +43,23 @@
           </ion-card-header>
         </ion-card>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
     <ion-row>
-      <ion-col size="6" size-sm="12">
+      <ion-col size="6" size-sm="12" (click)="goToTotalEmployee()">
         <ion-card class="stat-card employees-card">
           <ion-card-header>
             <ion-card-title>Total Employees</ion-card-title>
-            <p>--</p>
+            <p *ngIf="totalEmployee">{{totalEmployee.total || 0}}</p>
             <small>Current Year</small>
           </ion-card-header>
         </ion-card>
       </ion-col>
-      <ion-col size="6" size-sm="12">
+      <ion-col size="6" size-sm="12" (click)="goToPresentEmployee()">
         <ion-card class="stat-card present-employees-card">
           <ion-card-header>
             <ion-card-title>Present Employees</ion-card-title>
-            <p>--</p>
+            <p *ngIf="totalEmployee">{{totalEmployee.presentCount || 0}}</p>
             <small>Today</small>
           </ion-card-header>
         </ion-card>
@@ -89,17 +87,17 @@
       </ion-col>
     </ion-row>
 
-    <ion-button expand="block" color="dark">
+    <!-- <ion-button expand="block" color="dark">
       <ion-icon name="cloud-upload-outline" slot="start"></ion-icon>
       Upload Event/Circular
-    </ion-button>
+    </ion-button> -->
 
-    <ion-button expand="block" color="dark">
+    <ion-button expand="block" color="dark" (click)="markAttendance()">
       <ion-icon name="checkbox-outline" slot="start"></ion-icon>
       Mark Attendance
     </ion-button>
 
-    <ion-button expand="block" color="dark">
+    <ion-button expand="block" color="dark" (click)="goToMyAttendance()">
       <ion-icon name="reader-outline" slot="start"></ion-icon>
       View My Attendance
     </ion-button>

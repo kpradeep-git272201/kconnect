@@ -23,7 +23,7 @@
             <form [formGroup]="loginForm" (ngSubmit)="getLogin()">
               <div class="form-group password-wrapper">
                 <ion-input
-                  (ionChnage)="clearMsg()"
+                  (input)="clearMsg()"
                   type="email"
                   placeholder="User Id"
                   class="form-control mb-3"
@@ -36,7 +36,7 @@
 
               <div class="form-group password-wrapper">
                 <ion-input
-                (ionChnage)="clearMsg()"
+                (input)="clearMsg()"
                   [type]="showPassword ? 'text' : 'password'"
                   placeholder="Password"
                   class="form-control mb-3"

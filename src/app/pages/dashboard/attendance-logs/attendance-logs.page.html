@@ -7,56 +7,78 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
+<ion-content [fullscreen]="true">
   <ng-container *ngIf="attendanceLogs?.length > 0; else noData">
     <ion-card *ngFor="let attendance of attendanceLogs">
-      <ion-card-header>
-        <ion-card-title>
-          <ion-icon name="calendar-outline"></ion-icon>
-          {{ attendance.date }}
-        </ion-card-title>
+      <ion-card-header style="padding: 0rem;">
+        <ion-grid>
+          <ion-row class="ion-align-items-center">
+            <ion-col size="auto">
+              <ion-icon name="calendar-outline" class="icon icon-md"></ion-icon>
+            </ion-col>
+            <ion-col>
+              <ion-card-title class="ion-text-start">
+                {{ attendance.date }}
+              </ion-card-title>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-card-header>
 
-      <ion-card-content>
+      <ion-card-content style="padding: 0rem;">
         <ion-grid>
           <ion-row>
-            <ion-col size="6">
+            <!-- In Time -->
+            <ion-col size="6" class="ion-text-left">
               <ion-chip color="success" outline>
                 <ion-icon name="log-in-outline" color="success"></ion-icon>
                 <ion-label>
-                  <strong>In:</strong> {{ attendance.inTime }}
+                  <strong>In:</strong> {{ attendance.inTime?.slice(0, 8) }}
                 </ion-label>
               </ion-chip>
             </ion-col>
 
-            <ion-col size="6">
-              <ion-chip color="danger" outline>
-                <ion-icon name="log-out-outline" color="danger"></ion-icon>
+            <!-- Out Time -->
+            <ion-col size="6" class="ion-text-right">
+              <ion-chip [color]="attendance.outTime ? 'danger' : 'warning'" outline>
+                <ion-icon [name]="attendance.outTime ? 'log-out-outline' : 'time-outline'" [color]="attendance.outTime ? 'danger' : 'warning'"></ion-icon>
                 <ion-label>
-                  <strong>Out:</strong> {{ attendance.outTime }}
+                  <strong>Out:</strong> {{ attendance.outTime ? attendance.outTime.slice(0, 8) : 'In Progress' }}
                 </ion-label>
               </ion-chip>
             </ion-col>
           </ion-row>
 
+          <!-- Duration -->
           <ion-row>
-            <ion-col size="12">
-              <ion-text color="medium">
-                <p>
-                  <strong>Working Hours:</strong>
-                  {{ calculateWorkingHours(attendance.inTime, attendance.outTime) }}
-                </p>
-              </ion-text>
+            <ion-col size="12" class="ion-text-center">
+              <div style="display: flex; justify-content: center; align-items: center; gap: 6px;">
+                <ion-icon name="time-outline" class="icon icon-md"></ion-icon>
+                <ion-text color="dark">
+                  <strong>Duration:</strong>
+                  {{ attendance.outTime ? calculateWorkingHours(attendance.inTime, attendance.outTime) : 'Calculating...' }}
+                </ion-text>
+              </div>
             </ion-col>
           </ion-row>
+
         </ion-grid>
       </ion-card-content>
     </ion-card>
   </ng-container>
 
   <ng-template #noData>
-    <ion-text color="medium">
-      <p class="ion-text-center">No attendance records found.</p>
-    </ion-text>
+    <div class="no-records-container">
+      <ion-card class="no-records-card">
+        <ion-card-header class="ion-text-center">
+          <ion-card-title>
+            <ion-icon name="reader-outline"></ion-icon>
+             No Records</ion-card-title>
+        </ion-card-header>
+        <ion-card-content class="ion-text-center">
+          <p>Oops! You haven't marked your attendance yet.<br>Start your day by checking in.</p>
+        </ion-card-content>
+      </ion-card>
+    </div>
   </ng-template>
 </ion-content>

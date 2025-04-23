@@ -1,0 +1,95 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/apps/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Student Attendance</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ng-container
+    *ngIf="filteredStudent && filteredStudent.length > 0; else noData"
+  >
+    <div class="search-container-row">
+      <ion-searchbar
+        class="custom-searchbar"
+        placeholder="Search Student"
+        (ionInput)="getFilterStudent($event)"
+      >
+      </ion-searchbar>
+
+      <ion-select
+        slot="end"
+        interface="popover"
+        placeholder="Class"
+        [(ngModel)]="selectedClass"
+        (ionChange)="onClassChange($event)"
+        class="class-select"
+      >
+        <ion-select-option *ngFor="let class of classList" [value]="class.code"
+          >Class {{ class.value }}</ion-select-option
+        >
+      </ion-select>
+    </div>
+    <ion-card *ngFor="let student of filteredStudent" class="student-card">
+      <ion-item lines="none" class="card-item">
+        <ion-avatar
+          slot="start"
+          class="avatar-circle"
+          [ngStyle]="{ 'background-color': student.bgColor || '#ccc' }"
+        >
+          <div class="avatar-text">
+            {{ student.studentName.charAt(0).toUpperCase() }}
+          </div>
+        </ion-avatar>
+
+        <ion-label>
+          <h2 class="name">{{ student.studentName }}</h2>
+          <p class="id">ID: {{ student.studentId }}</p>
+        </ion-label>
+
+        <ion-toggle
+          slot="end"
+          [(ngModel)]="student.isPresent"
+          (ionChange)="onToggleAttendance(student)"
+          color="tertiary"
+        ></ion-toggle>
+      </ion-item>
+    </ion-card>
+    <ion-fab
+      vertical="bottom"
+      horizontal="end"
+      slot="fixed"
+      style="margin-bottom: 12px; margin-right: 12px"
+    >
+      <ion-fab-button color="success" (click)="markAttendance()">
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-list side="top">
+        <ion-label>
+          <div class="fab-label">Saved</div>
+        </ion-label>
+      </ion-fab-list>
+    </ion-fab>
+  </ng-container>
+
+  <ng-template #noData>
+    <div class="no-records-container">
+      <ion-card class="no-records-card">
+        <ion-card-header class="ion-text-center">
+          <ion-card-title>
+            <ion-icon name="reader-outline"></ion-icon>
+            No Records</ion-card-title
+          >
+        </ion-card-header>
+        <ion-card-content class="ion-text-center">
+          <p>
+            Oops! You haven't marked your attendance yet.<br />Start your day by
+            checking in.
+          </p>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </ng-template>
+</ion-content>
