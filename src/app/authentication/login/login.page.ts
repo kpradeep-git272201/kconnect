@@ -30,6 +30,7 @@ export class LoginPage implements OnInit {
   showPassword: boolean = false;
   getdata: any;
   isLoading: boolean;
+  appVersion: any;
   constructor(
     private router: Router,
     private databaseService: DatabaseService,
@@ -45,15 +46,14 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
+    this.appVersion=AppConfig.APP_VERSION;
     this.registeredStudent = this.databaseService.getRegisteredStd();
   }
   async getLogin() {
     if (this.loginForm.valid) {
       const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.login}`;
       const loginData = this.loginForm.getRawValue();
-
       const hashedPassword = await this.hashSHA256(loginData.password);
-
       const loginBody = {
         username: loginData.userNmae,
         password: hashedPassword,
