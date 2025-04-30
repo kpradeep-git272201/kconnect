@@ -13,6 +13,16 @@ const routes: Routes = [
     loadComponent: () => import('./pages/owner-dashboard/owner-dashboard.page').then( m => m.OwnerDashboardPage),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'total-employee',
+    loadComponent: () => import('./pages/total-employee/total-employee.page').then( m => m.TotalEmployeePage),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'present-employee',
+    loadComponent: () => import('./pages/present-employee/present-employee.page').then( m => m.PresentEmployeePage),
+    canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({

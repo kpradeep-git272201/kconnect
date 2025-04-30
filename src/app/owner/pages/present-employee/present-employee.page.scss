@@ -1,0 +1,78 @@
+.employee-card {
+  margin: 0.625rem; /* 10px */
+}
+
+.card-item {
+  --padding-start: 0.75rem; /* 12px */
+  --inner-padding-end: 0.625rem; /* 10px */
+}
+
+.avatar-circle {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  width: 3rem; /* 48px */
+  height: 3rem;
+  font-size: 1.25rem; /* 20px */
+}
+
+.attendance-photo {
+  width: 100%;
+  border-radius: 0.625rem; /* 10px */
+  margin-top: 0.3125rem; /* 5px */
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1); /* 2px 8px */
+}
+
+.no-data {
+  text-align: center;
+  margin-top: 3rem;
+  font-size: 1.2rem;
+  color: gray;
+}
+
+.avatar-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 4.6875rem; /* 75px ➜ previously set */
+  height: 6rem;
+}
+
+.avatar-side img {
+  width: 6.25rem; /* 100px */
+  height: 6.25rem;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0.125rem; /* 2px */
+}
+
+.time-label {
+  font-size: 0.8125rem; /* 13px */
+  text-align: center;
+  line-height: 1;
+  color: #555;
+}
+
+.employee-list-item {
+  align-items: center;
+  min-height: 5.625rem; /* 90px */
+}
+
+.badge-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-badge {
+  font-size: 0.8125rem; /* 13px */
+  // padding: 0.25rem 0.5rem; /* 4px 8px if needed */
+}
+
+.duration-badge {
+  font-size: 0.6875rem; /* 11px */
+  // padding: 0.25rem 0.375rem; /* 4px 6px if needed */
+}

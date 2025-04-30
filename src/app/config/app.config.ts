@@ -30,6 +30,8 @@ export const AppConfig = {
       'madminapi/private/v1/facultyData/facultyAssignedSubjects',
     uploadClassWork: 'madminapi/private/v1/classwork',
     getSeeClasswork: 'madminapi/private/v1/r/classworkData',
-    getSeeHomework: 'madminapi/private/v1/r/homeworkData'
+    getSeeHomework: 'madminapi/private/v1/r/homeworkData',
+    getBranchListByOwner: 'madminapi/private/v1/r/schoolBranches/getBranchesBySchoolId',
+    branchWiseEmployee: 'madminapi/private/r/v1/employeeData/branchWiseEmployee'
   },
 };

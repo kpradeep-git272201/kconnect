@@ -1,14 +1,28 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-menu-button style="color: white;"></ion-menu-button>
     </ion-buttons>
-    <ion-title style="color: white;">Dashboard</ion-title>
+
+    <!-- Branch dropdown -->
+    <ion-select 
+      interface="popover"
+      placeholder="Select Branch"
+      [(ngModel)]="selectedBranch"
+      (ionChange)="onBranchChange($event)"
+      style="color: white; margin-left: 10px;"
+    >
+      <ion-select-option *ngFor="let branch of branchList" [value]="branch.code">
+        {{ branch.value }}
+      </ion-select-option>
+    </ion-select>
+
     <ion-buttons slot="end">
       <ion-icon class="notifications icon-md" name="notifications-outline"></ion-icon>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
 
 <ion-content [fullscreen]="true" class="dashboard-bg pb-3">
   <ion-card class="students-card">
@@ -46,20 +60,20 @@
     </ion-row>
 
     <ion-row>
-      <ion-col size="6" size-sm="12">
+      <ion-col size="6" size-sm="12" (click)="goToTotalEmployee()">
         <ion-card class="stat-card employees-card">
           <ion-card-header>
             <ion-card-title>Total Employees</ion-card-title>
-            <p>--</p>
+            <p *ngIf="totalEmployee">{{totalEmployee.total || 0}}</p>
             <small>Current Year</small>
           </ion-card-header>
         </ion-card>
       </ion-col>
-      <ion-col size="6" size-sm="12">
+      <ion-col size="6" size-sm="12" (click)="goToPresentEmployee()">
         <ion-card class="stat-card present-employees-card">
           <ion-card-header>
             <ion-card-title>Present Employees</ion-card-title>
-            <p>--</p>
+            <p *ngIf="totalEmployee">{{totalEmployee.presentCount || 0}}</p>
             <small>Today</small>
           </ion-card-header>
         </ion-card>
@@ -71,7 +85,7 @@
         <ion-card class="stat-card students-card">
           <ion-card-header>
             <ion-card-title>Total Students</ion-card-title>
-            <p>4</p>
+            <p>---</p>
             <small>Current Year</small>
           </ion-card-header>
         </ion-card>
@@ -80,7 +94,7 @@
         <ion-card class="stat-card present-students-card">
           <ion-card-header>
             <ion-card-title>Present Students</ion-card-title>
-            <p>0</p>
+            <p>---</p>
             <small>Today</small>
           </ion-card-header>
         </ion-card>

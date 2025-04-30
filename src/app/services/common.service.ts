@@ -117,7 +117,20 @@ export class CommonService {
       })
     );
   }
-
+  getBranchListByOwner(){
+    const token = localStorage.getItem('token');
+    const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.getBranchListByOwner}`;
+    const headers = new HttpHeaders().set('content-type', 'application/json').set('Accept', 'application/json').set('Authorization', `Bearer ${token}`);
+    return this.request('GET', url, { headers: headers, reportProgress: false, observe: 'response' }).pipe(
+      map(resp => {
+        return resp;
+      }),
+      catchError(error => {
+        // alert(error);
+        return of(error);
+      })
+    );
+  }
   getTotalEmp(branchId){
     const token = localStorage.getItem('token');
     const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.totalEmployee}${branchId}`;
@@ -132,7 +145,20 @@ export class CommonService {
       })
     );
   }
-
+  getBranchWiseEmployee(branchId){
+    const token = localStorage.getItem('token');
+    const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.branchWiseEmployee}${branchId}`;
+    const headers = new HttpHeaders().set('content-type', 'application/json').set('Accept', 'application/json').set('Authorization', `Bearer ${token}`);
+    return this.request('GET', url, { headers: headers, reportProgress: false, observe: 'response' }).pipe(
+      map(resp => {
+        return resp;
+      }),
+      catchError(error => {
+        // alert(error);
+        return of(error);
+      })
+    );
+  }
   getEmployeeList(data:any){
     const token = localStorage.getItem('token');
     const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.totalEmployeeList}`;
