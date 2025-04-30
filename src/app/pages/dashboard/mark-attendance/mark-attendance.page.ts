@@ -100,7 +100,7 @@ export class MarkAttendancePage implements OnInit {
             );
             const fixedDistance=parseFloat(distance.toFixed(2));
             this.calculatedDistance=fixedDistance;
-            if (fixedDistance <= 200) {
+            if (fixedDistance <= 100) {
               this.inLocation = 1;
               this.startDetection();
             } else {
