@@ -187,6 +187,35 @@ export class CommonService {
       })
     );
   }
+
+  getRecentHomeWork(subjectId:any, classId:any, sectionId:any){
+    const token = localStorage.getItem('token');
+    const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.getRecentHomeWork}/${subjectId}/${classId}/${sectionId}`;
+    const headers = new HttpHeaders().set('content-type', 'application/json').set('Accept', 'application/json').set('Authorization', `Bearer ${token}`);
+    return this.request('GET', url, { headers: headers, reportProgress: false, observe: 'response' }).pipe(
+      map(resp => {
+        return resp;
+      }),
+      catchError(error => {
+        return of(error);
+      })
+    );
+  }
+
+  getRecentClassWork(subjectId:any, classId:any, sectionId:any){
+    const token = localStorage.getItem('token');
+    const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.getRecentClassWork}/${subjectId}/${classId}/${sectionId}`;
+    const headers = new HttpHeaders().set('content-type', 'application/json').set('Accept', 'application/json').set('Authorization', `Bearer ${token}`);
+    return this.request('GET', url, { headers: headers, reportProgress: false, observe: 'response' }).pipe(
+      map(resp => {
+        return resp;
+      }),
+      catchError(error => {
+        return of(error);
+      })
+    );
+  }
+
   updateStuAttendance(data:any, classId:any, sectionId:any){
     const token = localStorage.getItem('token');
     const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.studentList}/${classId}/${sectionId}`;

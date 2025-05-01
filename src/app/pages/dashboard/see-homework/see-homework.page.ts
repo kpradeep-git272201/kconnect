@@ -18,9 +18,6 @@ export class SeeHomeworkPage implements OnInit {
   classList: any=[];
   subjectList: any=[];
   months: any=[
-    { value: '1', name: 'January' },
-    { value: '2', name: 'February' },
-    { value: '3', name: 'March' },
     { value: '4', name: 'April' },
     { value: '5', name: 'May' },
     { value: '6', name: 'June' },
@@ -29,7 +26,10 @@ export class SeeHomeworkPage implements OnInit {
     { value: '9', name: 'September' },
     { value: '10', name: 'October' },
     { value: '11', name: 'November' },
-    { value: '12', name: 'December' }
+    { value: '12', name: 'December' },
+    { value: '1', name: 'January' },
+    { value: '2', name: 'February' },
+    { value: '3', name: 'March' },
   ];
 
   selectedClass: any | null = null;

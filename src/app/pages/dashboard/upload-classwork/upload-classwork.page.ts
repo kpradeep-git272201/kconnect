@@ -22,6 +22,7 @@ export class UploadClassworkPage implements OnInit {
   subjectList:any = [];
   submitionDate: string = moment().format('YYYY-MM-DD');
   selectedDate: string = '';
+  buttonText: string='Upload Classwork';
 
 
   constructor(
@@ -33,6 +34,7 @@ export class UploadClassworkPage implements OnInit {
   ) { 
     this.iconService.registerIcons();
     this.classworkForm = this.fb.group({
+      classWorkId: [''],
       classId: [null, Validators.required],
       subjectId: [null, Validators.required],
       workSubmissionDate: [this.submitionDate],
@@ -58,6 +60,14 @@ export class UploadClassworkPage implements OnInit {
   onClassChange(event: any) {
     this.classworkForm.patchValue({ classId: event.detail.value });
     this.getSubjectListClassWise(event.detail.value);
+  }
+
+  onSubjectChange(event: any){
+    const subjectId=event.detail.value;
+    const classId=this.classworkForm.controls["classId"]?.value;
+    if(subjectId && classId != null){
+      this.getRecentClassWork(subjectId, classId);
+    }
   }
 
   async getSubjectListClassWise(classId: any) {
@@ -100,7 +110,10 @@ export class UploadClassworkPage implements OnInit {
       this.classworkForm.markAllAsTouched();
       return;
     }
-
+    if(this.buttonText=='Update Classwork'){
+      this.updateClasswork();
+      return;
+    }
     const payload = this.classworkForm.value;
 
     await this.loadingService.showLoading();
@@ -127,5 +140,53 @@ export class UploadClassworkPage implements OnInit {
         this.alertService.showAlert('Alert', 'Something went wrong!', 'alert');
       },
     );
+  }
+
+  getRecentClassWork(subjectId:any, classId:any){
+    const sectionId=0;
+    this.commonService.getRecentClassWork(subjectId, classId, sectionId).subscribe((resp)=>{
+      if(resp?.status === 200){
+        const recentHomeWork=resp?.body;
+        this.buttonText="Update Classwork";
+        this.classworkForm.patchValue({
+          classWorkId: recentHomeWork.homeworkId,
+          classId: recentHomeWork.classId,
+          subjectId: recentHomeWork.subjectId,
+          workSubmissionDate: recentHomeWork.workSubmissionDate,
+          workTitle: recentHomeWork.workTitle,
+          workContent: recentHomeWork.workContent,
+        });
+      }else{
+        this.buttonText="Upload Homework";
+      }
+    })
+  }
+  async updateClasswork(){
+    const payload = this.classworkForm.value;
+    this.alertService.showAlert('Alert', JSON.stringify(payload), 'alert');
+    // await this.loadingService.showLoading();
+    // this.commonService.uploadHomeWork(payload).subscribe(
+    //   async (resp) => {
+    //     await this.loadingService.hideLoading();
+    //     if (resp.status === 200) {
+    //       this.alertService.showAlert(
+    //         'Uploaded!',
+    //         'Homework updated successfully!',
+    //         'success',
+    //       );
+    //       this.homeworkForm.reset();
+    //     } else {
+    //       this.alertService.showAlert(
+    //         'Alert!',
+    //         'Homework/Assignments already added for this date',
+    //         'alert',
+    //       );
+    //     }
+    //   },
+    //   async () => {
+    //     await this.loadingService.hideLoading();
+    //     this.alertService.showAlert('Alert', 'Something went wrong!', 'alert');
+    //   },
+    // );
   }
 }
