@@ -146,15 +146,15 @@ export class UploadClassworkPage implements OnInit {
     const sectionId=0;
     this.commonService.getRecentClassWork(subjectId, classId, sectionId).subscribe((resp)=>{
       if(resp?.status === 200){
-        const recentHomeWork=resp?.body;
+        const recentClassWork=resp?.body;
         this.buttonText="Update Classwork";
         this.classworkForm.patchValue({
-          classWorkId: recentHomeWork.homeworkId,
-          classId: recentHomeWork.classId,
-          subjectId: recentHomeWork.subjectId,
-          workSubmissionDate: recentHomeWork.workSubmissionDate,
-          workTitle: recentHomeWork.workTitle,
-          workContent: recentHomeWork.workContent,
+          classWorkId: recentClassWork.classworkId,
+          classId: recentClassWork.classId,
+          subjectId: recentClassWork.subjectId,
+          workSubmissionDate: recentClassWork.classworkDate,
+          workTitle: recentClassWork.workTitle,
+          workContent: recentClassWork.workContent,
         });
       }else{
         this.buttonText="Upload Homework";
@@ -163,30 +163,31 @@ export class UploadClassworkPage implements OnInit {
   }
   async updateClasswork(){
     const payload = this.classworkForm.value;
-    this.alertService.showAlert('Alert', JSON.stringify(payload), 'alert');
-    // await this.loadingService.showLoading();
-    // this.commonService.uploadHomeWork(payload).subscribe(
-    //   async (resp) => {
-    //     await this.loadingService.hideLoading();
-    //     if (resp.status === 200) {
-    //       this.alertService.showAlert(
-    //         'Uploaded!',
-    //         'Homework updated successfully!',
-    //         'success',
-    //       );
-    //       this.homeworkForm.reset();
-    //     } else {
-    //       this.alertService.showAlert(
-    //         'Alert!',
-    //         'Homework/Assignments already added for this date',
-    //         'alert',
-    //       );
-    //     }
-    //   },
-    //   async () => {
-    //     await this.loadingService.hideLoading();
-    //     this.alertService.showAlert('Alert', 'Something went wrong!', 'alert');
-    //   },
-    // );
+    await this.loadingService.showLoading();
+    const classWorkId=payload.classWorkId;
+    delete payload['classWorkId'];
+    this.commonService.updateClassWork(payload, classWorkId).subscribe(
+      async (resp) => {
+        await this.loadingService.hideLoading();
+        if (resp.status === 200) {
+          this.alertService.showAlert(
+            'Updated!',
+            'Classwork updated successfully!',
+            'success',
+          );
+         this.buttonText='Update Classwork';
+        } else {
+          this.alertService.showAlert(
+            'Alert!',
+            'Homework/Assignments already added for this date',
+            'alert',
+          );
+        }
+      },
+      async () => {
+        await this.loadingService.hideLoading();
+        this.alertService.showAlert('Alert', 'Something went wrong!', 'alert');
+      },
+    );
   }
 }

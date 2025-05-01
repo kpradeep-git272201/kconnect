@@ -22,7 +22,7 @@
           <ion-label position="stacked">Submition Date (yyyy-mm-dd)</ion-label>
           <div class="calendar-date-row">
             <ion-icon [ariaDisabled]="true" name="calendar-outline" class="calendar-icon" (click)="openDatePicker()"></ion-icon>
-            <input type="date" #hiddenDateInput (change)="formatDate($event)" class="hidden-date-input" readonly />
+            <input type="date" #hiddenDateInput (change)="formatDate($event)" formControlName="workSubmissionDate" class="hidden-date-input" readonly />
             <span class="selected-date-text">{{ submitionDate }}</span>
           </div>
         </ion-item>

@@ -142,31 +142,32 @@ export class UploadHomeworkPage implements OnInit {
 
   async updateHomework(){
     const payload = this.homeworkForm.value;
-    this.alertService.showAlert('Alert', JSON.stringify(payload), 'alert');
-    // await this.loadingService.showLoading();
-    // this.commonService.uploadHomeWork(payload).subscribe(
-    //   async (resp) => {
-    //     await this.loadingService.hideLoading();
-    //     if (resp.status === 200) {
-    //       this.alertService.showAlert(
-    //         'Uploaded!',
-    //         'Homework updated successfully!',
-    //         'success',
-    //       );
-    //       this.homeworkForm.reset();
-    //     } else {
-    //       this.alertService.showAlert(
-    //         'Alert!',
-    //         'Homework/Assignments already added for this date',
-    //         'alert',
-    //       );
-    //     }
-    //   },
-    //   async () => {
-    //     await this.loadingService.hideLoading();
-    //     this.alertService.showAlert('Alert', 'Something went wrong!', 'alert');
-    //   },
-    // );
+    await this.loadingService.showLoading();
+    const homeworkId=payload.homeWorkId;
+    delete payload['homeWorkId'];
+    this.commonService.updateHomeWork(payload, homeworkId).subscribe(
+      async (resp) => {
+        await this.loadingService.hideLoading();
+        if (resp.status === 200) {
+          this.alertService.showAlert(
+            'Updated!',
+            'Homework updated successfully!',
+            'success',
+          );
+          this.buttonText='Update Homework';
+        } else {
+          this.alertService.showAlert(
+            'Alert!',
+            'Homework/Assignments already added for this date',
+            'alert',
+          );
+        }
+      },
+      async () => {
+        await this.loadingService.hideLoading();
+        this.alertService.showAlert('Alert', 'Something went wrong!', 'alert');
+      },
+    );
   }
   getRecentHomeWork(subjectId:any, classId:any){
     const sectionId=0;
