@@ -12,6 +12,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'about',
+    loadComponent: () => import('./pages/about/about.page').then( m => m.AboutPage),
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'total-employee',
     loadComponent: () =>
       import('./pages/total-employee/total-employee.page').then(
@@ -41,6 +46,16 @@ const routes: Routes = [
       import('./pages/my-attendance/my-attendance.page').then(
         (m) => m.MyAttendancePage,
       ),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'upload-event',
+    loadComponent: () => import('./pages/upload-event/upload-event.page').then( m => m.UploadEventPage),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'view-event',
+    loadComponent: () => import('./pages/view-event/view-event.page').then( m => m.ViewEventPage),
     canActivate: [AuthGuard],
   },
 ];

@@ -8,14 +8,15 @@ import { LoadingService } from 'src/app/services/loading.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({
-  selector: 'app-see-homework',
-  templateUrl: './see-homework.page.html',
-  styleUrls: ['./see-homework.page.scss'],
+  selector: 'app-view-assignment',
+  templateUrl: './view-assignment.page.html',
+  styleUrls: ['./view-assignment.page.scss'],
   standalone: true,
   imports: [SharedModule]
 })
-export class SeeHomeworkPage implements OnInit {
+export class ViewAssignmentPage implements OnInit {
 
+ 
   classList: any=[];
   subjectList: any=[];
   months: any=[
@@ -105,7 +106,7 @@ export class SeeHomeworkPage implements OnInit {
 
     if(selectedClass!=null && selectedSubject!=null && selectedMonth!=null){
       await this.loadingService.showLoading();  
-      this.commonService.getSeeHomework(this.selectedMonth, this.selectedSubject, this.selectedClass, 0).subscribe(async (resp)=>{
+      this.commonService.assignmentData(this.selectedMonth, this.selectedSubject, this.selectedClass, 0).subscribe(async (resp)=>{
         if(resp?.body.length>0){
           await this.loadingService.hideLoading();
           this.viewWorkList=resp.body;
@@ -120,9 +121,10 @@ export class SeeHomeworkPage implements OnInit {
     }
   }
 
-  editHomework(classwork:any){
+  editClasswork(classwork:any){
     this.alertService.showAlert('Soon!', 'This is not availabe', 'alert');
   }
+
   goToUploadHomework(){
     this.router.navigate(["/apps/upload-homework"]);
   }
@@ -134,4 +136,5 @@ export class SeeHomeworkPage implements OnInit {
   goToDashboard(){
     this.router.navigate(["/apps/dashboard"]);
   }
+
 }

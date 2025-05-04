@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HTTP } from '@awesome-cordova-plugins/http/ngx';
 import { CommonService } from './services/common.service';
 import { StatusBar, Style } from '@capacitor/status-bar';
+import { FooterPage } from "./footer/footer.page";
 
 
 
@@ -19,7 +20,7 @@ import { StatusBar, Style } from '@capacitor/status-bar';
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
-  imports: [SharedModule, SideMenuComponent,HttpClientModule ],
+  imports: [SharedModule, SideMenuComponent, HttpClientModule],
   providers: [CommonService, HTTP] 
 })
 export class AppComponent {

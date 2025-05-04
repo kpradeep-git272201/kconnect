@@ -79,7 +79,7 @@
           </ion-card-content>
         </ion-card>
       </ion-col>
-      <ion-col size="4">
+      <ion-col size="4" (click)="goToUploadAssignment()">
         <ion-card class="card">
           <ion-card-header>
             <img src="assets/images/dashboard/uploadassignment.jpg" />
@@ -129,14 +129,14 @@
             </ion-card-content>
           </ion-card>
         </ion-col>
-        <ion-col size="4">
+        <ion-col size="4" (click)="goToViewAssignment()">
           <ion-card class="card">
-            <ion-card-header style="height: 6rem;">
-              <img src="assets/images/dashboard/up.jpg" />
+            <ion-card-header>
+              <img src="assets/images/dashboard/seehw.jpg" />
             </ion-card-header>
           
             <ion-card-content>
-              <p class="fs-subtitle">Upcoming!</p>
+              <p class="fs-subtitle">View Assignment</p>
             </ion-card-content>
           </ion-card>
         </ion-col>
@@ -149,24 +149,20 @@
 
 <!-- Footer -->
 <ion-footer>
-  <ion-toolbar>
-    <ion-tab-bar>
-      <ion-tab-button tab="home">
-        <ion-icon class="icon-md" name="home-outline"></ion-icon>
-        <ion-label>Home</ion-label>
+  <ion-toolbar >
+    <ion-tab-bar color="secondary">
+      <ion-tab-button  (click)="goToDashboard()">
+        <ion-icon class="icon-md" name="apps-outline"></ion-icon>
+        <ion-label>Dashboard</ion-label>
       </ion-tab-button>
-      <ion-tab-button tab="assignment">
+      <ion-tab-button (click)="goToUploadAssignment()">
         <ion-icon class="icon-md" name="document-outline"></ion-icon>
         <ion-label>Assignment</ion-label>
       </ion-tab-button>
-      <ion-tab-button tab="homework">
+      <ion-tab-button  (click)="goToUploadHomework()">
         <ion-icon class="icon-md" name="book-outline"></ion-icon>
         <ion-label>Homework</ion-label>
       </ion-tab-button>
-      <!-- <ion-tab-button tab="fee">
-        <ion-icon class="icon-md" name="card-outline"></ion-icon>
-        <ion-label>Pay Fee</ion-label>
-      </ion-tab-button> -->
     </ion-tab-bar>
   </ion-toolbar>
 </ion-footer>

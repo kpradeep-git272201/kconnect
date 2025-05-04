@@ -1,0 +1,19 @@
+<ion-tabs *ngIf="loggedUser?.roleId==3">
+  <ion-tab-bar slot="bottom" color="secondary">
+    <ion-tab-button (click)="onClick('Dashboard')">
+      <ion-icon name="apps-outline"></ion-icon>
+      <ion-label>Dashboard</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button (click)="onClick('UploadEvent')">
+      <ion-icon name="cloud-upload-outline"></ion-icon>
+      <ion-label>Upload Event</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button (click)="onClick('ViewEvent')">
+      <ion-icon name="eye-outline"></ion-icon>
+      <ion-label>View Event</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
+

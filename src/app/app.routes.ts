@@ -27,6 +27,13 @@ export const routes: Routes = [
     loadChildren: () => import('./principal/principal.module').then(m => m.PrincipalModule), 
     canActivate: [AuthGuard]
   },
+
+
+
+
+
+
+
  
 
  

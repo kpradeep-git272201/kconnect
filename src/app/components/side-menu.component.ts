@@ -55,6 +55,7 @@ export class SideMenuComponent implements OnInit {
   appPages: any = [];
   loggedUser: any;
   appVersion: any;
+  user: any;
   constructor(
     private router: Router,
     private commonService: CommonService,
@@ -89,6 +90,7 @@ export class SideMenuComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.user = this.commonService.getLoggedUser();
     this.appVersion=AppConfig.APP_VERSION;
     this.setMenuByRole();
     this.menuService.menuUpdate$.subscribe(() => {
@@ -115,9 +117,14 @@ export class SideMenuComponent implements OnInit {
     ];
 
     if (parsedUser?.roleId == 3) {
-      this.appPages = this.appPages.filter((menu) =>
-        this.displaySidemenuPrincipal.includes(menu.id),
-      );
+      this.appPages = this.appPages.filter((menu) =>{
+        if(menu.id==1){
+          menu.url='/principal/dashboard';
+        }else if(menu.id==6){
+          menu.url='/principal/about';
+        }
+        return this.displaySidemenuPrincipal.includes(menu.id);
+      });
     } else {
       this.appPages = this.appPages.filter((menu) => menu.id !== 7);
     }

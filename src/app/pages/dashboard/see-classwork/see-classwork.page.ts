@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { CommonService } from 'src/app/services/common.service';
 import { IconService } from 'src/app/services/icon.service';
@@ -17,9 +18,6 @@ export class SeeClassworkPage implements OnInit {
   classList: any=[];
   subjectList: any=[];
   months: any=[
-    { value: '1', name: 'January' },
-    { value: '2', name: 'February' },
-    { value: '3', name: 'March' },
     { value: '4', name: 'April' },
     { value: '5', name: 'May' },
     { value: '6', name: 'June' },
@@ -28,7 +26,10 @@ export class SeeClassworkPage implements OnInit {
     { value: '9', name: 'September' },
     { value: '10', name: 'October' },
     { value: '11', name: 'November' },
-    { value: '12', name: 'December' }
+    { value: '12', name: 'December' },
+    { value: '1', name: 'January' },
+    { value: '2', name: 'February' },
+    { value: '3', name: 'March' },
   ];
 
   selectedClass: any | null = null;
@@ -42,6 +43,7 @@ export class SeeClassworkPage implements OnInit {
     private loadingService: LoadingService,
     private alertService: AlertService,
     private iconService: IconService,
+    private router: Router
   ) { 
     this.iconService.registerIcons()
   }
@@ -119,5 +121,16 @@ export class SeeClassworkPage implements OnInit {
 
   editClasswork(classwork:any){
     this.alertService.showAlert('Soon!', 'This is not availabe', 'alert');
+  }
+  goToUploadHomework(){
+    this.router.navigate(["/apps/upload-homework"]);
+  }
+  
+  goToUploadAssignment(){
+    this.router.navigate(["/apps/upload-assignment"]);
+  }
+
+  goToDashboard(){
+    this.router.navigate(["/apps/dashboard"]);
   }
 }

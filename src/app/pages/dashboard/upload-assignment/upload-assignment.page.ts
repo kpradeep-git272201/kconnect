@@ -1,31 +1,30 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import moment from 'moment';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import moment from 'moment';
 import { AlertService } from 'src/app/services/alert.service';
 import { CommonService } from 'src/app/services/common.service';
 import { IconService } from 'src/app/services/icon.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { Router } from '@angular/router';
-
 
 @Component({
-  selector: 'app-upload-classwork',
-  templateUrl: './upload-classwork.page.html',
-  styleUrls: ['./upload-classwork.page.scss'],
+  selector: 'app-upload-assignment',
+  templateUrl: './upload-assignment.page.html',
+  styleUrls: ['./upload-assignment.page.scss'],
   standalone: true,
   imports: [SharedModule]
 })
-export class UploadClassworkPage implements OnInit {
-@ViewChild('hiddenDateInput') dateInput!: ElementRef;
-  classworkForm: FormGroup;
+export class UploadAssignmentPage implements OnInit {
+
+  @ViewChild('hiddenDateInput') dateInput!: ElementRef;
+  assignmentForm: FormGroup;
   classList: any = [];
   subjectList:any = [];
   submitionDate: string = moment().format('YYYY-MM-DD');
   selectedDate: string = '';
-  buttonText: string='Upload Classwork';
-
-
+  recentHomeWork: any;
+  buttonText="Upload Assignment";
   constructor(
     private fb: FormBuilder,
     private commonService: CommonService,
@@ -33,10 +32,10 @@ export class UploadClassworkPage implements OnInit {
     private alertService: AlertService,
     private iconService: IconService,
     private router: Router
-  ) { 
+  ) {
     this.iconService.registerIcons();
-    this.classworkForm = this.fb.group({
-      classWorkId: [''],
+    this.assignmentForm = this.fb.group({
+      assignmentId: [''],
       classId: [null, Validators.required],
       subjectId: [null, Validators.required],
       workSubmissionDate: [this.submitionDate],
@@ -57,21 +56,20 @@ export class UploadClassworkPage implements OnInit {
   
   formatDate(event: any) {
     this.submitionDate = event.target.value;
-    this.classworkForm.controls['workSubmissionDate'].setValue(event.target.value);
+    this.assignmentForm.controls['workSubmissionDate'].setValue(event.target.value);
   }
   onClassChange(event: any) {
-    this.classworkForm.patchValue({ classId: event.detail.value });
+    this.assignmentForm.patchValue({ classId: event.detail.value });
     this.getSubjectListClassWise(event.detail.value);
   }
 
   onSubjectChange(event: any){
     const subjectId=event.detail.value;
-    const classId=this.classworkForm.controls["classId"]?.value;
+    const classId=this.assignmentForm.controls["classId"]?.value;
     if(subjectId && classId != null){
-      this.getRecentClassWork(subjectId, classId);
+      this.getRecentAssignment(subjectId, classId);
     }
   }
-
   async getSubjectListClassWise(classId: any) {
     await this.loadingService.showLoading();
     this.commonService.getSubjectByClassId(classId).subscribe(
@@ -107,77 +105,29 @@ export class UploadClassworkPage implements OnInit {
     );
   }
 
-  async submitHomework() {
-    if (this.classworkForm.invalid) {
-      this.classworkForm.markAllAsTouched();
+  async submitAssignment() {
+    if (this.assignmentForm.invalid) {
+      this.assignmentForm.markAllAsTouched();
       return;
     }
-    if(this.buttonText=='Update Classwork'){
-      this.updateClasswork();
+
+    if(this.buttonText=='Update Assignment'){
+      this.updateAssignment();
       return;
     }
-    const payload = this.classworkForm.value;
+    const payload = this.assignmentForm.value;
 
     await this.loadingService.showLoading();
-    this.commonService.uploadClassWork(payload).subscribe(
+    this.commonService.uploadHomeWork(payload).subscribe(
       async (resp) => {
         await this.loadingService.hideLoading();
         if (resp.status === 200) {
           this.alertService.showAlert(
             'Uploaded!',
-            'Classwork uploaded successfully!',
+            'Assigment uploaded successfully!',
             'success',
           );
-          this.classworkForm.reset();
-        } else {
-          this.alertService.showAlert(
-            'Alert!',
-            'Classwork/Assignments already added for this date',
-            'alert',
-          );
-        }
-      },
-      async () => {
-        await this.loadingService.hideLoading();
-        this.alertService.showAlert('Alert', 'Something went wrong!', 'alert');
-      },
-    );
-  }
-
-  getRecentClassWork(subjectId:any, classId:any){
-    const sectionId=0;
-    this.commonService.getRecentClassWork(subjectId, classId, sectionId).subscribe((resp)=>{
-      if(resp?.status === 200){
-        const recentClassWork=resp?.body;
-        this.buttonText="Update Classwork";
-        this.classworkForm.patchValue({
-          classWorkId: recentClassWork.classworkId,
-          classId: recentClassWork.classId,
-          subjectId: recentClassWork.subjectId,
-          workSubmissionDate: recentClassWork.classworkDate,
-          workTitle: recentClassWork.workTitle,
-          workContent: recentClassWork.workContent,
-        });
-      }else{
-        this.buttonText="Upload Homework";
-      }
-    })
-  }
-  async updateClasswork(){
-    const payload = this.classworkForm.value;
-    await this.loadingService.showLoading();
-    const classWorkId=payload.classWorkId;
-    delete payload['classWorkId'];
-    this.commonService.updateClassWork(payload, classWorkId).subscribe(
-      async (resp) => {
-        await this.loadingService.hideLoading();
-        if (resp.status === 200) {
-          this.alertService.showAlert(
-            'Updated!',
-            'Classwork updated successfully!',
-            'success',
-          );
-         this.buttonText='Update Classwork';
+          this.assignmentForm.reset();
         } else {
           this.alertService.showAlert(
             'Alert!',
@@ -193,6 +143,54 @@ export class UploadClassworkPage implements OnInit {
     );
   }
 
+  async updateAssignment(){
+    const payload = this.assignmentForm.value;
+    await this.loadingService.showLoading();
+    const assignmentId=payload.assignmentId;
+    delete payload['homeWorkId'];
+    this.commonService.updateAssignment(payload, assignmentId).subscribe(
+      async (resp) => {
+        await this.loadingService.hideLoading();
+        if (resp.status === 200) {
+          this.alertService.showAlert(
+            'Updated!',
+            'Assigment updated successfully!',
+            'success',
+          );
+          this.buttonText='Update Assignment';
+        } else {
+          this.alertService.showAlert(
+            'Alert!',
+            'Homework/Assignments already added for this date',
+            'alert',
+          );
+        }
+      },
+      async () => {
+        await this.loadingService.hideLoading();
+        this.alertService.showAlert('Alert', 'Something went wrong!', 'alert');
+      },
+    );
+  }
+  getRecentAssignment(subjectId:any, classId:any){
+    const sectionId=0;
+    this.commonService.getRecentAssignment(subjectId, classId, sectionId).subscribe((resp)=>{
+      if(resp?.status === 200){
+        const recentHomeWork=resp?.body;
+        this.buttonText="Update Assignment";
+        this.assignmentForm.patchValue({
+          assignmentId: recentHomeWork.homeworkId,
+          classId: recentHomeWork.classId,
+          subjectId: recentHomeWork.subjectId,
+          workSubmissionDate: recentHomeWork.workSubmissionDate,
+          workTitle: recentHomeWork.workTitle,
+          workContent: recentHomeWork.workContent,
+        });
+      }else{
+        this.buttonText="Upload Assignment";
+      }
+    })
+  }
   goToUploadHomework(){
     this.router.navigate(["/apps/upload-homework"]);
   }

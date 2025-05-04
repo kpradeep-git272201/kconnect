@@ -1,0 +1,58 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Upload Event</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="eventForm" style="width: 100%;height: 100%;">
+    <ion-card>
+      <ion-list>
+        <ion-item>
+          <ion-label position="floating">Event Title</ion-label>
+          <ion-input type="text" formControlName="title"></ion-input>
+          <ion-text color="danger" *ngIf="eventForm.get('title')?.touched && eventForm.get('title')?.invalid">
+            <small>Event Title is required</small>
+          </ion-text>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label position="floating">Event Content</ion-label>
+          <ion-textarea type="text" formControlName="content"></ion-textarea>
+          <ion-text color="danger" *ngIf="eventForm.get('content')?.touched && eventForm.get('content')?.invalid">
+            <small>Event Content is required</small>
+          </ion-text>
+        </ion-item>
+      </ion-list>
+      <input type="hidden" formControlName="eventId"/>
+      <div class="ion-text-center ion-margin-top">
+        <ion-button expand="block" color="primary" (click)="submitHomework()">
+          <ion-icon name="cloud-upload-outline" slot="start"></ion-icon>
+          Upload Event
+        </ion-button>
+      </div>
+    </ion-card>
+   
+  </form>
+
+</ion-content>
+<ion-footer *ngIf="loggedUser?.roleId==3">
+  <ion-toolbar>
+    <ion-tab-bar color="secondary">
+      <ion-tab-button (click)="onClick('Dashboard')">
+        <ion-icon name="apps-outline"></ion-icon>
+        <ion-label>Dashboard</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button (click)="onClick('UploadEvent')">
+        <ion-icon name="cloud-upload-outline"></ion-icon>
+        <ion-label>Upload Event</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button (click)="onClick('ViewEvent')">
+        <ion-icon name="eye-outline"></ion-icon>
+        <ion-label>View Event</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-toolbar>
+</ion-footer>

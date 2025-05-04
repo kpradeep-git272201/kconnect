@@ -84,3 +84,21 @@
 
   </form>
 </ion-content>
+<ion-footer>
+  <ion-toolbar >
+    <ion-tab-bar color="secondary">
+      <ion-tab-button  (click)="goToDashboard()">
+        <ion-icon class="icon-md" name="apps-outline"></ion-icon>
+        <ion-label>Dashboard</ion-label>
+      </ion-tab-button>
+      <ion-tab-button (click)="goToUploadAssignment()">
+        <ion-icon class="icon-md" name="document-outline"></ion-icon>
+        <ion-label>Assignment</ion-label>
+      </ion-tab-button>
+      <ion-tab-button  (click)="goToUploadHomework()">
+        <ion-icon class="icon-md" name="book-outline"></ion-icon>
+        <ion-label>Homework</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-toolbar>
+</ion-footer>
