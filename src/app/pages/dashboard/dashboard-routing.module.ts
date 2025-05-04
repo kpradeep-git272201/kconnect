@@ -117,6 +117,18 @@ const routes: Routes = [
       import('./see-homework/see-homework.page').then((m) => m.SeeHomeworkPage),
     canActivate: [AuthGuard],
   },
+
+  {
+    path: 'upload-assignment',
+    loadComponent: () => import('./upload-assignment/upload-assignment.page').then( m => m.UploadAssignmentPage),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'view-assignment',
+    loadComponent: () => import('./view-assignment/view-assignment.page').then( m => m.ViewAssignmentPage),
+    canActivate: [AuthGuard],
+  },
+
 ];
 
 @NgModule({

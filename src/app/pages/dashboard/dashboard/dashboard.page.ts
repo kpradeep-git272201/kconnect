@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { logoIonic, homeOutline, documentOutline, bookOutline, cardOutline, documentTextOutline, newspaperOutline, starOutline, megaphoneOutline, schoolOutline, cashOutline, checkboxOutline, chatboxEllipsesOutline, mailOutline, notificationsOutline } from 'ionicons/icons';
+import { logoIonic, homeOutline, documentOutline, bookOutline, cardOutline, documentTextOutline, newspaperOutline, starOutline, megaphoneOutline, schoolOutline, cashOutline, checkboxOutline, chatboxEllipsesOutline, mailOutline, notificationsOutline, appsOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { Router } from '@angular/router';
 import { IconService } from 'src/app/services/icon.service';
@@ -18,7 +18,7 @@ export class DashboardPage implements OnInit {
   constructor(private router: Router, private iconService: IconService,
     private commonService: CommonService
   ) { 
-    addIcons({notificationsOutline,homeOutline,documentOutline,bookOutline,cardOutline,documentTextOutline,newspaperOutline,starOutline,megaphoneOutline,schoolOutline,cashOutline,checkboxOutline,chatboxEllipsesOutline,mailOutline,logoIonic});
+    addIcons({notificationsOutline,appsOutline,documentOutline,bookOutline,homeOutline,cardOutline,documentTextOutline,newspaperOutline,starOutline,megaphoneOutline,schoolOutline,cashOutline,checkboxOutline,chatboxEllipsesOutline,mailOutline,logoIonic});
     this.iconService.registerIcons();
   }
 
@@ -60,5 +60,13 @@ export class DashboardPage implements OnInit {
   goToSeeClasswork(){
     this.router.navigate(["/apps/see-classwork"]);
   }
-  
+  goToUploadAssignment(){
+    this.router.navigate(["/apps/upload-assignment"]);
+  }
+  goToViewAssignment(){
+    this.router.navigate(["/apps/view-assignment"]);
+  }
+  goToDashboard(){
+    this.router.navigate(["/apps/dashboard"]);
+  }
 }

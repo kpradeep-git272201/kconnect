@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button style="color: white;"></ion-menu-button>
+      <ion-menu-button autoHide="false" style="color: white;"></ion-menu-button>
     </ion-buttons>
     <ion-title style="color: white;">Dashboard</ion-title>
     <ion-buttons slot="end" style="margin-right: 0.875rem;">
@@ -24,28 +24,7 @@
   </ion-card>
 
   <ion-grid>
-    <!-- <ion-row>
-      <ion-col size="6" size-sm="12">
-        <ion-card class="stat-card amount-card">
-          <ion-card-header>
-            <ion-card-title>Total Amount</ion-card-title>
-            <p>₹ 15000</p>
-            <small>From Last Year</small>
-          </ion-card-header>
-        </ion-card>
-      </ion-col>
-      <ion-col size="6" size-sm="12">
-        <ion-card class="stat-card expense-card">
-          <ion-card-header>
-            <ion-card-title>Expenditure</ion-card-title>
-            <p>₹ 0</p>
-            <small>From Last Year</small>
-          </ion-card-header>
-        </ion-card>
-      </ion-col>
-    </ion-row> -->
-
-    <ion-row>
+    <ion-row *ngIf="isPrincipal">
       <ion-col size="6" size-sm="12" (click)="goToTotalEmployee()">
         <ion-card class="stat-card employees-card">
           <ion-card-header>
@@ -66,7 +45,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-row>
+    <ion-row *ngIf="isPrincipal">
       <ion-col size="6" size-sm="12">
         <ion-card class="stat-card students-card">
           <ion-card-header>
@@ -103,3 +82,23 @@
     </ion-button>
   </ion-grid>
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-tab-bar color="secondary">
+      <ion-tab-button (click)="onClick('Dashboard')">
+        <ion-icon name="apps-outline"></ion-icon>
+        <ion-label>Dashboard</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button *ngIf="isPrincipal" (click)="onClick('UploadEvent')">
+        <ion-icon name="cloud-upload-outline"></ion-icon>
+        <ion-label>Upload Event</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button *ngIf="isPrincipal" (click)="onClick('ViewEvent')">
+        <ion-icon name="eye-outline"></ion-icon>
+        <ion-label>View Event</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-toolbar>
+</ion-footer>

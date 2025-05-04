@@ -169,7 +169,7 @@ import { HttpClientModule } from '@angular/common/http';
     IonRouterLink,
     HttpClientModule,
     IonLoading ,
-    IonToggle 
+    IonToggle,
   ]
 })
 export class SharedModule { }

@@ -6,6 +6,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { IconService } from 'src/app/services/icon.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-upload-homework',
@@ -29,6 +30,7 @@ export class UploadHomeworkPage implements OnInit {
     private loadingService: LoadingService,
     private alertService: AlertService,
     private iconService: IconService,
+    private router: Router
   ) {
     this.iconService.registerIcons();
     this.homeworkForm = this.fb.group({
@@ -187,5 +189,17 @@ export class UploadHomeworkPage implements OnInit {
         this.buttonText="Upload Homework";
       }
     })
+  }
+
+  goToUploadHomework(){
+    this.router.navigate(["/apps/upload-homework"]);
+  }
+  
+  goToUploadAssignment(){
+    this.router.navigate(["/apps/upload-assignment"]);
+  }
+
+  goToDashboard(){
+    this.router.navigate(["/apps/dashboard"]);
   }
 }

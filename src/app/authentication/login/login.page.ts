@@ -68,14 +68,17 @@ export class LoginPage implements OnInit {
             localStorage.setItem('token', resp.headers.get('authorization'));
             window.location.reload();
             this.loginForm.reset();
-            if(resp.body.roleId==19){ // Emplayee dashbaord
-              this.router.navigate(['/apps/dashboard']);
+            if(resp.body.roleId==1){ // Emplayee dashbaord
+              // this.router.navigate(['/owner/dashboard']);
             }else if(resp.body.roleId==2){  // Owner dashbaord
               this.router.navigate(['/owner/dashboard']);
             }else if(resp.body.roleId==3){ // Principle dashbaord
               this.router.navigate(['/principal/dashboard']);
+            }else if(resp.body.roleId==19){
+              this.router.navigate(['/apps/dashboard']);
             }else{
-              this.alertService.showAlert("Access Denied!", "Your role has not been assigned yet. Please contact the administrator for assistance.", "alert");
+              //only mark attenace and view
+              this.router.navigate(['/principal/dashboard']);
             }
           }else{
             this.isLoading = false;

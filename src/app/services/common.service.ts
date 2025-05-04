@@ -213,7 +213,19 @@ export class CommonService {
       })
     );
   }
-
+  assignmentData(monthId:any, subjectId:any, classId:any, sectionId:any){
+    const token = localStorage.getItem('token');
+    const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.assignmentData}/${monthId}/${subjectId}/${classId}/${sectionId}`;
+    const headers = new HttpHeaders().set('content-type', 'application/json').set('Accept', 'application/json').set('Authorization', `Bearer ${token}`);
+    return this.request('GET', url, { headers: headers, reportProgress: false, observe: 'response' }).pipe(
+      map(resp => {
+        return resp;
+      }),
+      catchError(error => {
+        return of(error);
+      })
+    );
+  }
   getRecentHomeWork(subjectId:any, classId:any, sectionId:any){
     const token = localStorage.getItem('token');
     const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.getRecentHomeWork}/${subjectId}/${classId}/${sectionId}`;
@@ -227,7 +239,20 @@ export class CommonService {
       })
     );
   }
-
+  getRecentAssignment(subjectId:any, classId:any, sectionId:any){
+    const token = localStorage.getItem('token');
+    const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.getRecentAssignment}/${subjectId}/${classId}/${sectionId}`;
+    const headers = new HttpHeaders().set('content-type', 'application/json').set('Accept', 'application/json').set('Authorization', `Bearer ${token}`);
+    return this.request('GET', url, { headers: headers, reportProgress: false, observe: 'response' }).pipe(
+      map(resp => {
+        return resp;
+      }),
+      catchError(error => {
+        return of(error);
+      })
+    );
+  }
+  
   getRecentClassWork(subjectId:any, classId:any, sectionId:any){
     const token = localStorage.getItem('token');
     const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.getRecentClassWork}/${subjectId}/${classId}/${sectionId}`;
@@ -281,9 +306,35 @@ export class CommonService {
       })
     );
   }
+  uploadAssignment(data:any){
+    const token = localStorage.getItem('token');
+    const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.uploadAssignment}`;
+    const headers = new HttpHeaders().set('content-type', 'application/json').set('Accept', 'application/json').set('Authorization', `Bearer ${token}`);
+    return this.request('POST', url, { body: data, headers: headers, reportProgress: false, observe: 'response' }).pipe(
+      map(resp => {
+        return resp;
+      }),
+      catchError(error => {
+        return of(error);
+      })
+    );
+  }
   updateHomeWork(data:any, homeWorkId:any){
     const token = localStorage.getItem('token');
     const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.uploadHomework}/${homeWorkId}`;
+    const headers = new HttpHeaders().set('content-type', 'application/json').set('Accept', 'application/json').set('Authorization', `Bearer ${token}`);
+    return this.request('PATCH', url, { body: data, headers: headers, reportProgress: false, observe: 'response' }).pipe(
+      map(resp => {
+        return resp;
+      }),
+      catchError(error => {
+        return of(error);
+      })
+    );
+  }
+  updateAssignment(data:any, assignmentId:any){
+    const token = localStorage.getItem('token');
+    const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.updateAssignment}/${assignmentId}`;
     const headers = new HttpHeaders().set('content-type', 'application/json').set('Accept', 'application/json').set('Authorization', `Bearer ${token}`);
     return this.request('PATCH', url, { body: data, headers: headers, reportProgress: false, observe: 'response' }).pipe(
       map(resp => {
@@ -323,6 +374,34 @@ export class CommonService {
   getBranchLatLong(){
     const token = localStorage.getItem('token');
     const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.getGeotaggedLocation}`;
+    const headers = new HttpHeaders().set('content-type', 'application/json').set('Accept', 'application/json').set('Authorization', `Bearer ${token}`);
+    return this.request('GET', url, { headers: headers, reportProgress: false, observe: 'response' }).pipe(
+      map(resp => {
+        return resp;
+      }),
+      catchError(error => {
+        return of(error);
+      })
+    );
+  }
+
+  uploadEvent(data:any){
+    const token = localStorage.getItem('token');
+    const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.uploadEvent}`;
+    const headers = new HttpHeaders().set('content-type', 'application/json').set('Accept', 'application/json').set('Authorization', `Bearer ${token}`);
+    return this.request('POST', url, { body: data, headers: headers, reportProgress: false, observe: 'response' }).pipe(
+      map(resp => {
+        return resp;
+      }),
+      catchError(error => {
+        return of(error);
+      })
+    );
+  }
+
+  getEvent(){
+    const token = localStorage.getItem('token');
+    const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.getEvent}`;
     const headers = new HttpHeaders().set('content-type', 'application/json').set('Accept', 'application/json').set('Authorization', `Bearer ${token}`);
     return this.request('GET', url, { headers: headers, reportProgress: false, observe: 'response' }).pipe(
       map(resp => {

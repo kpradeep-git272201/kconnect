@@ -1,0 +1,76 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>View Event</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <div class="search-container">
+    <ion-searchbar
+      style="width: 64%;"
+      [placeholder]="'Search'"
+      class="custom-searchbar"
+      (ionInput)="filterEvent($event)"
+    ></ion-searchbar>
+
+    <div style="display: flex; align-items: center; padding-left: 1rem;">
+      <div class="calendar-date-row" (click)="openDatePicker()">
+        <ion-icon name="calendar-outline" class="calendar-icon" ></ion-icon>
+        <input type="date" #hiddenDateInput (change)="formatDate($event)" class="hidden-date-input" />
+        <span class="selected-date-text">{{ submitionDate }}</span>
+      </div>
+    </div>
+  </div>
+  <ng-container *ngIf="eventList && eventList.length > 0; else noData">
+    
+    <ion-card *ngFor="let event of eventList" class="employee-card">
+      <ion-item lines="none" class="card-item">
+        <ion-avatar slot="start" [ngStyle]="{ 'background-color': event.bgColor }" class="avatar-circle">
+          <div class="avatar-text">{{ event.title.charAt(0).toUpperCase() }}</div>
+        </ion-avatar>
+  
+        <ion-label>
+          <h2 class="name">{{ event.title }}</h2>
+          <p class="date">Description: {{ event.content }}</p>
+          <p class="date">Date: {{ event.uploadedDate | date: 'dd-MMM-yyyy' }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+  </ng-container>
+
+  <ng-template #noData>
+    <div class="no-records-container">
+      <ion-card class="no-records-card">
+        <ion-card-header class="ion-text-center">
+          <ion-card-title>
+            <ion-icon name="reader-outline"></ion-icon>
+             No Records</ion-card-title>
+        </ion-card-header>
+        <ion-card-content class="ion-text-center">
+          <p>Event not found, Plase add Event.</p>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </ng-template>
+</ion-content>
+<ion-footer *ngIf="loggedUser?.roleId==3">
+  <ion-toolbar>
+    <ion-tab-bar color="secondary">
+      <ion-tab-button (click)="onClick('Dashboard')">
+        <ion-icon name="apps-outline"></ion-icon>
+        <ion-label>Dashboard</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button (click)="onClick('UploadEvent')">
+        <ion-icon name="cloud-upload-outline"></ion-icon>
+        <ion-label>Upload Event</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button (click)="onClick('ViewEvent')">
+        <ion-icon name="eye-outline"></ion-icon>
+        <ion-label>View Event</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-toolbar>
+</ion-footer>

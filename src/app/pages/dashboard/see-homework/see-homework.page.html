@@ -45,10 +45,10 @@
         <ion-card-content>
           <div class="content-row">
             <p>{{ work.workContent }}</p>
-            <ion-button fill="clear" size="small" (click)="editHomework(work)">
+            <!-- <ion-button fill="clear" size="small" (click)="editHomework(work)">
               <ion-icon slot="start" name="create-outline"></ion-icon>
               Edit
-            </ion-button>
+            </ion-button> -->
           </div>
         </ion-card-content>
       </ion-card>
@@ -56,7 +56,7 @@
   </ng-container>
 
   <ng-template #noData>
-    <div class="no-records-container">
+    <div class="no-records-container" style="height: 66vh">
       <ion-card class="no-records-card">
         <ion-card-header class="ion-text-center">
           <ion-card-title>
@@ -64,10 +64,28 @@
              No Records</ion-card-title>
         </ion-card-header>
         <ion-card-content class="ion-text-center">
-          <p>Home work not found</p>
+          <p>Home work not found, Please add Home work.</p>
         </ion-card-content>
       </ion-card>
     </div>
   </ng-template>
 
 </ion-content>
+<ion-footer>
+  <ion-toolbar >
+    <ion-tab-bar color="secondary">
+      <ion-tab-button  (click)="goToDashboard()">
+        <ion-icon class="icon-md" name="apps-outline"></ion-icon>
+        <ion-label>Dashboard</ion-label>
+      </ion-tab-button>
+      <ion-tab-button (click)="goToUploadAssignment()">
+        <ion-icon class="icon-md" name="document-outline"></ion-icon>
+        <ion-label>Assignment</ion-label>
+      </ion-tab-button>
+      <ion-tab-button  (click)="goToUploadHomework()">
+        <ion-icon class="icon-md" name="book-outline"></ion-icon>
+        <ion-label>Homework</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-toolbar>
+</ion-footer>
