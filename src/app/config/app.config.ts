@@ -1,7 +1,7 @@
 import { environment } from 'src/environments/environment.prod';
 
 export const AppConfig = {
-  APP_VERSION: "v 0.14",
+  APP_VERSION: "v 0.16",
   BASE_API: environment.apiBaseUrl,
   ENDPOINTS: {
     login: 'madminapi/publicApi/v1/auth/login',
@@ -31,6 +31,8 @@ export const AppConfig = {
     uploadClassWork: 'madminapi/private/v1/classwork',
     getSeeClasswork: 'madminapi/private/v1/r/classworkData',
     getSeeHomework: 'madminapi/private/v1/r/homeworkData',
+    getRecentHomeWork: 'madminapi/private/v1/r/homeworkData/getRecentHomeWork',
+  	getRecentClassWork: 'madminapi/private/v1/r/classworkData/getRecentClassWork'
     getBranchListByOwner: 'madminapi/private/v1/r/schoolBranches/getBranchesBySchoolId',
     branchWiseEmployee: 'madminapi/private/r/v1/employeeData/branchWiseEmployee'
   },
