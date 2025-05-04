@@ -33,5 +33,7 @@ export const AppConfig = {
     getSeeHomework: 'madminapi/private/v1/r/homeworkData',
     getRecentHomeWork: 'madminapi/private/v1/r/homeworkData/getRecentHomeWork',
   	getRecentClassWork: 'madminapi/private/v1/r/classworkData/getRecentClassWork'
+    getBranchListByOwner: 'madminapi/private/v1/r/schoolBranches/getBranchesBySchoolId',
+    branchWiseEmployee: 'madminapi/private/r/v1/employeeData/branchWiseEmployee'
   },
 };

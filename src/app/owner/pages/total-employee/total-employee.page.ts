@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import moment from 'moment';
 import { AlertService } from 'src/app/services/alert.service';
 import { CommonService } from 'src/app/services/common.service';
@@ -16,29 +17,35 @@ import { SharedModule } from 'src/app/shared/shared.module';
 export class TotalEmployeePage implements OnInit {
   @ViewChild('hiddenDateInput') dateInput!: ElementRef;
   currentDate: string = new Date().toISOString().split('T')[0];
-  attendanceData: any=[];
-  filteredEmployee: any = []; 
-  submitionDate: any=this.currentDate;;
-  
-  constructor(private commonService: CommonService,
+  attendanceData: any = [];
+  filteredEmployee: any = [];
+  submitionDate: any = this.currentDate;
+  branchId: any;
+
+  constructor(
+    private commonService: CommonService,
     private alertService: AlertService,
     private loadingService: LoadingService,
-    private iconService: IconService
+    private iconService: IconService,
+    private route: ActivatedRoute,
   ) {
     this.iconService.registerIcons();
   }
 
   ngOnInit() {
-    const currentDate=moment().format("YYYY-MM-DD");
+    this.route.queryParams.subscribe((params) => {
+      if (params['branchId']) {
+        this.branchId = params['branchId'];
+      }
+    });
+    const currentDate = moment().format('YYYY-MM-DD');
     this.getEmployeeList(currentDate);
   }
-  
 
   openDatePicker() {
     this.dateInput.nativeElement.click();
   }
-  
-  
+
   formatDate(event: any) {
     this.submitionDate = event.target.value;
   }
@@ -48,27 +55,30 @@ export class TotalEmployeePage implements OnInit {
     console.log('Selected date:', selectedDate);
     this.getEmployeeList(selectedDate);
   }
-  async getEmployeeList(currentDate:any) {
+  async getEmployeeList(currentDate: any) {
     await this.loadingService.showLoading();
     const data = {
-      branchId:0,
-      fromDate: currentDate
+      branchId: this.branchId,
+      fromDate: currentDate,
     };
-    this.commonService.getEmployeeList(data).subscribe(async (resp) => {
-      if(resp?.body.length>0){
-        this.attendanceData=resp.body;
-        this.filteredEmployee=this.attendanceData.map((person) => ({
-          ...person,
-          bgColor: this.getRandomLightColor(),
-        }));
+    this.commonService.getEmployeeList(data).subscribe(
+      async (resp) => {
+        if (resp?.body.length>0) {
+          this.attendanceData = resp.body;
+          this.filteredEmployee = this.attendanceData.map((person) => ({
+            ...person,
+            bgColor: this.getRandomLightColor(),
+          }));
+          await this.loadingService.hideLoading();
+        }else{
+          await this.loadingService.hideLoading();
+        }
+      },
+      async (error) => {
         await this.loadingService.hideLoading();
-      }else{
-        await this.loadingService.hideLoading();
-      }
-    },async (error)=>{
-      await this.loadingService.hideLoading();
-      this.alertService.showAlert("Alert!", "Someting went wrong!", "alert");
-    });
+        this.alertService.showAlert('Alert!', 'Someting went wrong!', 'alert');
+      },
+    );
   }
   getRandomLightColor(): string {
     const hue = Math.floor(Math.random() * 360); // full color wheel
@@ -79,11 +89,11 @@ export class TotalEmployeePage implements OnInit {
 
   filterEmployees(event: any) {
     const query = event.target.value?.toLowerCase() || '';
-    this.filteredEmployee = this.attendanceData.filter(person =>
-      person.name.toLowerCase().includes(query)
-    ).map((person) => ({
-      ...person,
-      bgColor: this.getRandomLightColor(),
-    }));;
+    this.filteredEmployee = this.attendanceData
+      .filter((person) => person.name.toLowerCase().includes(query))
+      .map((person) => ({
+        ...person,
+        bgColor: this.getRandomLightColor(),
+      }));
   }
 }
