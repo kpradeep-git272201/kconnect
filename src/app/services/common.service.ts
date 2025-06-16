@@ -215,7 +215,7 @@ export class CommonService {
   }
   assignmentData(monthId:any, subjectId:any, classId:any, sectionId:any){
     const token = localStorage.getItem('token');
-    const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.assignmentData}/${monthId}/${subjectId}/${classId}/${sectionId}`;
+    const url = `${AppConfig.BASE_API}${AppConfig.ENDPOINTS.assignmentData}/${subjectId}/${classId}/${sectionId}`;
     const headers = new HttpHeaders().set('content-type', 'application/json').set('Accept', 'application/json').set('Authorization', `Bearer ${token}`);
     return this.request('GET', url, { headers: headers, reportProgress: false, observe: 'response' }).pipe(
       map(resp => {
