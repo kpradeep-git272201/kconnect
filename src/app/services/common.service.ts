@@ -140,7 +140,6 @@ export class CommonService {
         return resp;
       }),
       catchError(error => {
-        // alert(error);
         return of(error);
       })
     );
@@ -154,7 +153,6 @@ export class CommonService {
         return resp;
       }),
       catchError(error => {
-        // alert(error);
         return of(error);
       })
     );
