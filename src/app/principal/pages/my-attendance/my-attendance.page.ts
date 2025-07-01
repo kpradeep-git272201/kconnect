@@ -31,14 +31,14 @@ export class MyAttendancePage implements OnInit {
    async getMyAttendance() {
    await this.loadingService.showLoading();
      this.commonService.getMyAttendance().subscribe(async (resp) => {
-       if(resp){
-         this.myAttendance=[resp.body];
-         this.myAttendance=this.myAttendance.map((person) => ({
-           ...person,
-           bgColor: this.getRandomLightColor(),
-         }));
-         await this.loadingService.hideLoading();
-       }
+        if(resp.body){
+          this.myAttendance=[resp.body];
+          this.myAttendance=this.myAttendance.map((person) => ({
+            ...person,
+            bgColor: this.getRandomLightColor(),
+          }));
+        }
+        await this.loadingService.hideLoading();
      },async (error)=>{
       await this.loadingService.hideLoading();
        this.alertService.showAlert("Alert!", "Someting went wrong!", "alert");

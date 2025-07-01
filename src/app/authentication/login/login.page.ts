@@ -66,7 +66,7 @@ export class LoginPage implements OnInit {
             this.errorMessagefromService = '';
             localStorage.setItem('loggedUser', JSON.stringify(resp.body));
             localStorage.setItem('token', resp.headers.get('authorization'));
-            window.location.reload();
+            
             this.loginForm.reset();
             if(resp.body.roleId==1){ // Emplayee dashbaord
               // this.router.navigate(['/owner/dashboard']);
@@ -80,6 +80,7 @@ export class LoginPage implements OnInit {
               //only mark attenace and view
               this.router.navigate(['/principal/dashboard']);
             }
+            // window.location.reload();
           }else{
             this.isLoading = false;
             this.errorMessagefromService = 'Invalid login credential!';

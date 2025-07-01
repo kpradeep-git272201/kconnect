@@ -32,12 +32,16 @@ export class PrincipalDashboardPage implements OnInit {
 
   ngOnInit() {
     this.user = this.commonService.getLoggedUser();
-    this.getTotalEmployee();
+    
     const loggedUser: any = localStorage.getItem('loggedUser');
     const token = localStorage.getItem('token');
     if (token) {
       const user: any = loggedUser ? JSON.parse(loggedUser) : loggedUser;
       this.isPrincipal = user?.roleId == 3 ? true : false;
+    }
+
+    if(this.isPrincipal){
+      this.getTotalEmployee();
     }
   }
   onClick(action:string){

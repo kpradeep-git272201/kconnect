@@ -1,7 +1,7 @@
 import { environment } from 'src/environments/environment.prod';
 
 export const AppConfig = {
-  APP_VERSION: "v 0.17",
+  APP_VERSION: "v 0.18",
   BASE_API: environment.apiBaseUrl,
   ENDPOINTS: {
     login: 'madminapi/publicApi/v1/auth/login',
